@@ -6,11 +6,11 @@ namespace BloodyPath
 {
     public class MainGame : Game
     {
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         
-        private Player _player1;
-        private Player _player2;
+        private BasePlayer _player1;
+        private BasePlayer _player2;
 
         private Texture2D _groundTexture;
         private Rectangle _groundRectangle;
@@ -19,7 +19,7 @@ namespace BloodyPath
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
         }
 
         protected override void Initialize()
@@ -31,9 +31,15 @@ namespace BloodyPath
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            _player1 = new(Content.Load<Texture2D>("Player1"), Content.Load<Texture2D>("Player1Damaged"), new Vector2(100, 100));
+            _player1 = new(Content.Load<Texture2D>("Player1"), 
+                                    Content.Load<Texture2D>("Player1Damaged"),
+                                    Content.Load<Texture2D>("HPRed"),
+                                    new Vector2(100, 100));
             
-            _player2 = new(Content.Load<Texture2D>("Player2"), Content.Load<Texture2D>("Player2Damaged"), new Vector2(400, 100));
+            _player2 = new(Content.Load<Texture2D>("Player2"), 
+                                    Content.Load<Texture2D>("Player2Damaged"),
+                                    Content.Load<Texture2D>("HPRed"),
+                                    new Vector2(600, 100));
 
             _player1.KeyMappings = new()
             {
@@ -53,15 +59,13 @@ namespace BloodyPath
                 { "Attack", Keys.Enter }
             };
 
-            //_player1Texture = Content.Load<Texture2D>("Player1");
-            //_player2Texture = Content.Load<Texture2D>("Player2");
-
-            //_player1DamagedTexture = Content.Load<Texture2D>("Player1Damaged");
-            //_player2DamagedTexture = Content.Load<Texture2D>("Player2Damaged");
-
+            //_landscapeTexture = Content.Load<Texture2D>("Landscape");
 
             _groundTexture = Content.Load<Texture2D>("Landscape");
-            _groundRectangle = new Rectangle(0, GraphicsDevice.Viewport.Height - 50, GraphicsDevice.Viewport.Width, 50);
+            _groundRectangle = new Rectangle(0, 
+                                                                GraphicsDevice.Viewport.Height - 50, 
+                                                                GraphicsDevice.Viewport.Width, 
+                                                                50);
         }
 
         protected override void Update(GameTime gameTime)
@@ -72,7 +76,6 @@ namespace BloodyPath
             base.Update(gameTime);
         }
 
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -80,34 +83,21 @@ namespace BloodyPath
             _spriteBatch.Begin();
 
             // Draw landscape
-            //_spriteBatch.Draw(_landscapeTexture, Vector2.Zero, Color.White);
+            _spriteBatch.Draw(_groundTexture, Vector2.Zero, Color.White);
             // Draw ground
-            _spriteBatch.Draw(_groundTexture, _groundRectangle, Color.White);
+            //_spriteBatch.Draw(_groundTexture, _groundRectangle, Color.White);
 
-            // Draw players
-            //_spriteBatch.Draw(_player1Texture, _player1Position, Color.White);
-            //_spriteBatch.Draw(_player2Texture, _player2Position, Color.White);
+            var _player1Drawer = new Player.BasePlayerDrawer(_spriteBatch, _player1);
+            _player1Drawer.Draw();
+            _player1Drawer.DrawHpPlayerBar(new Vector2(10, 10));
 
-            _player1.Draw(_spriteBatch);
-            _player2.Draw(_spriteBatch);
-
-            // Draw HP bars
-            DrawHPBar(_spriteBatch, _player1.HP, new Vector2(10, 10), Color.Red, _player1.Texture);
-            DrawHPBar(_spriteBatch, _player2.HP, new Vector2(500, 10), Color.Red, _player2.Texture);
+            var _player2Drawer = new Player.BasePlayerDrawer(_spriteBatch, _player2);
+            _player2Drawer.Draw();
+            _player2Drawer.DrawHpPlayerBar(new Vector2(690, 10));
 
             _spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        private static void DrawHPBar(SpriteBatch spriteBatch, int hp, Vector2 position, Color color, Texture2D playerTexture)
-        {
-            // Draw HP bar background
-            spriteBatch.Draw(playerTexture, new Rectangle((int)position.X, (int)position.Y, 100, 10), Color.Gray);
-
-            // Draw filled portion of HP bar
-            int fillWidth = (int)(hp / (float)100 * 100);
-            spriteBatch.Draw(playerTexture, new Rectangle((int)position.X, (int)position.Y, fillWidth, 10), color);
         }
     }
 }
