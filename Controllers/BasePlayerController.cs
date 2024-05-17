@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BloodyPath.View;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
-namespace BloodyPath.Player;
+namespace BloodyPath.Controller;
 
 public class BasePlayerController
 {
@@ -21,14 +22,14 @@ public class BasePlayerController
                                             BasePlayerDrawer playerDrawer,
                                             Dictionary<string, Keys> keyMappings)
     {
-        this.Player = player;
-        this.PlayerDrawer = playerDrawer;
-        this.KeyMappings = keyMappings;
+        Player = player;
+        PlayerDrawer = playerDrawer;
+        KeyMappings = keyMappings;
     }
 
     public void Update(KeyboardState keyboardState,
-                                BasePlayer otherPlayer, 
-                                Rectangle groundRectangle, 
+                                BasePlayer otherPlayer,
+                                Rectangle groundRectangle,
                                 GraphicsDevice gd)
     {
         // Move player based on keyboard input
@@ -61,14 +62,15 @@ public class BasePlayerController
             VerticalVelocity += Gravity;
 
         Player.Position.Y = Math.Min(Player.Position.Y + VerticalVelocity,
-                                        gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height);
+                                                   gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height);
         VerticalVelocity = Math.Min(VerticalVelocity, MaxFallSpeed);
 
         // Attack logic
         if (keyboardState.IsKeyDown(KeyMappings["Attack"]) && !Player.IsAttacking)
         {
             Player.IsAttacking = true;
-            if (Vector2.Distance(Player.Position, otherPlayer.Position) < PlayerDrawer.PlayerTexture.Width) // Ширина player'a и другого player'a 
+            // Ширина player'a и другого player'a
+            if (Vector2.Distance(Player.Position, otherPlayer.Position) < PlayerDrawer.PlayerTexture.Width)
                 otherPlayer.HP -= Player.AttackDamage;
         }
         else if (keyboardState.IsKeyUp(KeyMappings["Attack"]))

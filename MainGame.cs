@@ -1,4 +1,5 @@
-﻿using BloodyPath.Player;
+﻿using BloodyPath.Controller;
+using BloodyPath.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

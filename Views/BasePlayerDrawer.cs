@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BloodyPath.Player;
+namespace BloodyPath.View;
 
 public class BasePlayerDrawer
 {
@@ -11,38 +11,38 @@ public class BasePlayerDrawer
     public Texture2D PlayerDamagedTexture { get; private set; }
     public Texture2D PlayerHpTexture { get; private set; }
 
-    public BasePlayerDrawer(SpriteBatch spriteBatch, 
+    public BasePlayerDrawer(SpriteBatch spriteBatch,
                                          BasePlayer player,
                                          Texture2D playerTexture,
                                          Texture2D playerDamagedTexture,
                                          Texture2D playerHpTexture)
     {
-        this.Player = player;
-        this.SpriteBatch = spriteBatch;
-        this.PlayerTexture = playerTexture;
-        this.PlayerDamagedTexture = playerDamagedTexture;
-        this.PlayerHpTexture = playerHpTexture;
+        Player = player;
+        SpriteBatch = spriteBatch;
+        PlayerTexture = playerTexture;
+        PlayerDamagedTexture = playerDamagedTexture;
+        PlayerHpTexture = playerHpTexture;
     }
 
     public void Draw()
     {
-        if (player.IsAttacking)
+        if (Player.IsAttacking)
         {
-            spriteBatch.Draw(PlayerDamagedTexture, player.Position, Color.White);
+            SpriteBatch.Draw(PlayerDamagedTexture, Player.Position, Color.White);
         }
         else
         {
-            spriteBatch.Draw(PlayerTexture, player.Position, Color.White);
+            SpriteBatch.Draw(PlayerTexture, Player.Position, Color.White);
         }
     }
 
     public void DrawHpPlayerBar(Vector2 Pos)
     {
         // Draw HP bar background
-        spriteBatch.Draw(PlayerHpTexture, new Rectangle((int)Pos.X, (int)Pos.Y, 100, 10), Color.Gray);
+        SpriteBatch.Draw(PlayerHpTexture, new Rectangle((int)Pos.X, (int)Pos.Y, 100, 10), Color.Gray);
 
         // Draw filled portion of HP bar
-        int fillWidth = (int)(player.HP / (float)100 * 100);
-        spriteBatch.Draw(PlayerHpTexture, new Rectangle((int)Pos.X, (int)Pos.Y, fillWidth, 10), Color.Red);
+        int fillWidth = (int)(Player.HP / (float)100 * 100);
+        SpriteBatch.Draw(PlayerHpTexture, new Rectangle((int)Pos.X, (int)Pos.Y, fillWidth, 10), Color.Red);
     }
 }
