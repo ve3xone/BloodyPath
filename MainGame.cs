@@ -1,103 +1,118 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BloodyPath.Player;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
-namespace BloodyPath
+namespace BloodyPath;
+
+public class MainGame : Game
 {
-    public class MainGame : Game
+    private readonly GraphicsDeviceManager Graphics;
+    private SpriteBatch SpriteBatch;
+
+    private BasePlayer Player1;
+    private BasePlayerDrawer Player1Drawer;
+    private Dictionary<string, Keys> Player1KeyMappings;
+    private BasePlayerController Player1Controller;
+
+    private BasePlayer Player2;
+    private BasePlayerDrawer Player2Drawer;
+    private Dictionary<string, Keys> Player2KeyMappings;
+    private BasePlayerController Player2Controller;
+
+    private Texture2D GroundTexture;
+    private Rectangle GroundRectangle;
+
+    public MainGame()
     {
-        private readonly GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        Graphics = new GraphicsDeviceManager(this);
+        Content.RootDirectory = "Content";
+        IsMouseVisible = false;
+    }
+
+    protected override void Initialize() => base.Initialize();
+
+    protected override void LoadContent()
+    {
+        SpriteBatch = new SpriteBatch(GraphicsDevice);
         
-        private BasePlayer _player1;
-        private BasePlayer _player2;
+        Player1 = new( new Vector2(100, 100));
+        Player2 = new(new Vector2(600, 100));
 
-        private Texture2D _groundTexture;
-        private Rectangle _groundRectangle;
 
-        public MainGame()
+        Player1Drawer = new(SpriteBatch,
+                                        Player1, 
+                                        Content.Load<Texture2D>("Player1"),
+                                        Content.Load<Texture2D>("Player1Damaged"),
+                                        Content.Load<Texture2D>("HPRed"));
+        
+        Player2Drawer = new(SpriteBatch,
+                                        Player2,
+                                        Content.Load<Texture2D>("Player2"),
+                                        Content.Load<Texture2D>("Player2Damaged"),
+                                        Content.Load<Texture2D>("HPRed"));
+
+        Player1KeyMappings = new()
         {
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = false;
-        }
-
-        protected override void Initialize()
+            { "Left", Keys.A },
+            { "Right", Keys.D },
+            { "Down", Keys.S },
+            { "Up", Keys.W },
+            { "Attack", Keys.Space }
+        };
+        Player2KeyMappings = new()
         {
-            base.Initialize();
-        }
+            { "Left", Keys.Left },
+            { "Right", Keys.Right },
+            { "Down", Keys.Down },
+            { "Up", Keys.Up },
+            { "Attack", Keys.Enter }
+        };
+        Player1Controller = new(Player1, Player1Drawer, Player1KeyMappings);
+        Player2Controller = new(Player2, Player2Drawer, Player2KeyMappings);
+        
+        // Comment for test (debug)
+        // _landscapeTexture = Content.Load<Texture2D>("Landscape");
 
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-            _player1 = new(Content.Load<Texture2D>("Player1"), 
-                                    Content.Load<Texture2D>("Player1Damaged"),
-                                    Content.Load<Texture2D>("HPRed"),
-                                    new Vector2(100, 100));
-            
-            _player2 = new(Content.Load<Texture2D>("Player2"), 
-                                    Content.Load<Texture2D>("Player2Damaged"),
-                                    Content.Load<Texture2D>("HPRed"),
-                                    new Vector2(600, 100));
+        GroundTexture = Content.Load<Texture2D>("Landscape");
+        GroundRectangle = new Rectangle(0, 
+                                                           GraphicsDevice.Viewport.Height - 50, 
+                                                           GraphicsDevice.Viewport.Width, 
+                                                           50);
+    }
 
-            _player1.KeyMappings = new()
-            {
-                { "Left", Keys.A },
-                { "Right", Keys.D },
-                { "Down", Keys.S },
-                { "Up", Keys.W },
-                { "Attack", Keys.Space }
-            };
+    protected override void Update(GameTime gameTime)
+    {
+        var keyboardState = Keyboard.GetState();
 
-            _player2.KeyMappings = new()
-            {
-                { "Left", Keys.Left },
-                { "Right", Keys.Right },
-                { "Down", Keys.Down },
-                { "Up", Keys.Up },
-                { "Attack", Keys.Enter }
-            };
+        Player1Controller.Update(keyboardState, Player2, GroundRectangle, GraphicsDevice);
+        Player2Controller.Update(keyboardState, Player1, GroundRectangle, GraphicsDevice);
 
-            //_landscapeTexture = Content.Load<Texture2D>("Landscape");
+        base.Update(gameTime);
+    }
 
-            _groundTexture = Content.Load<Texture2D>("Landscape");
-            _groundRectangle = new Rectangle(0, 
-                                                                GraphicsDevice.Viewport.Height - 50, 
-                                                                GraphicsDevice.Viewport.Width, 
-                                                                50);
-        }
+    protected override void Draw(GameTime gameTime)
+    {
+        GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        protected override void Update(GameTime gameTime)
-        {
-            var keyboardState = Keyboard.GetState();
-            _player1.Update(gameTime, keyboardState, _player2, _groundRectangle, GraphicsDevice);
-            _player2.Update(gameTime, keyboardState, _player1, _groundRectangle, GraphicsDevice);
-            base.Update(gameTime);
-        }
+        SpriteBatch.Begin();
 
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+        // Draw landscape
+        SpriteBatch.Draw(GroundTexture, Vector2.Zero, Color.White);
+        
+        // Comment for test (debug)
+        // Draw ground
+        // SpriteBatch.Draw(GroundTexture, GroundRectangle, Color.White);
 
-            _spriteBatch.Begin();
+        Player1Drawer.Draw();
+        Player1Drawer.DrawHpPlayerBar(new Vector2(10, 10));
 
-            // Draw landscape
-            _spriteBatch.Draw(_groundTexture, Vector2.Zero, Color.White);
-            // Draw ground
-            //_spriteBatch.Draw(_groundTexture, _groundRectangle, Color.White);
+        Player2Drawer.Draw();
+        Player2Drawer.DrawHpPlayerBar(new Vector2(690, 10));
 
-            var _player1Drawer = new Player.BasePlayerDrawer(_spriteBatch, _player1);
-            _player1Drawer.Draw();
-            _player1Drawer.DrawHpPlayerBar(new Vector2(10, 10));
+        SpriteBatch.End();
 
-            var _player2Drawer = new Player.BasePlayerDrawer(_spriteBatch, _player2);
-            _player2Drawer.Draw();
-            _player2Drawer.DrawHpPlayerBar(new Vector2(690, 10));
-
-            _spriteBatch.End();
-
-            base.Draw(gameTime);
-        }
+        base.Draw(gameTime);
     }
 }

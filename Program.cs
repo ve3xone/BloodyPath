@@ -1,3 +1,2 @@
-﻿
-using var game = new BloodyPath.MainGame();
+﻿using var game = new BloodyPath.MainGame();
 game.Run();
