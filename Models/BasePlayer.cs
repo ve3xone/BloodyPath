@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+namespace BloodyPath.Models;
+
 public class BasePlayer
 {
     public bool IsAttacking { get; set; }
