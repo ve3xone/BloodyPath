@@ -1,10 +1,10 @@
-﻿using BloodyPath.Models;
-using BloodyPath.View;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
+using BloodyPath.Models;
+using BloodyPath.View;
 
 namespace BloodyPath.Controller;
 
