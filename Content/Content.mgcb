@@ -85,6 +85,13 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/Landscape_800_600.png
 
+#begin Fonts/FontMainMenu.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/FontMainMenu.spritefont
+
 #begin Fonts/TestText.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
