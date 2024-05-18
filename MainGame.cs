@@ -10,8 +10,8 @@ public class MainGame : Game
     private readonly GraphicsDeviceManager Graphics;
     private SpriteBatch SpriteBatch;
 
-    private Persona Persona1 = new();
-    private Persona Persona2 = new();
+    private readonly Persona Persona1 = new();
+    private readonly Persona Persona2 = new();
 
     private Texture2D GroundTexture;
     private Rectangle GroundRectangle;
