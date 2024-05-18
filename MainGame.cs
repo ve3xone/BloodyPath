@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using BloodyPath.Models;
+using BloodyPath.Views;
+using BloodyPath.Controllers;
 
 namespace BloodyPath;
 
@@ -9,6 +11,9 @@ public class MainGame : Game
 {
     private readonly GraphicsDeviceManager Graphics;
     private SpriteBatch SpriteBatch;
+    private SpriteFont Font;
+
+    private MainMenu MainMenu = new();
 
     private readonly Persona Persona1 = new();
     private readonly Persona Persona2 = new();
@@ -35,6 +40,17 @@ public class MainGame : Game
     protected override void LoadContent()
     {
         SpriteBatch = new SpriteBatch(GraphicsDevice);
+        Font = Content.Load<SpriteFont>(@"Fonts\FontMainMenu");
+
+        GroundTexture = Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600");
+        GroundRectangle = new Rectangle(0, GraphicsDevice.Viewport.Height - 50,
+                                                           GraphicsDevice.Viewport.Width, 50);
+
+        MainMenu.MenuScreen = new MainMenuScreen(this, GraphicsDevice, Font);
+        MainMenu.MenuScreen.LoadContent(GroundTexture);
+
+        MainMenu.MenuScreenDrawer = new(MainMenu.MenuScreen);
+        MainMenu.MenuScreenController = new(MainMenu.MenuScreen);
 
         Persona1.Player = new(new Vector2(100, 100));
         Persona2.Player = new(new Vector2(600, 100));
@@ -72,12 +88,6 @@ public class MainGame : Game
         
         // Comment for test (debug)
         // _landscapeTexture = Content.Load<Texture2D>("Landscape");
-
-        GroundTexture = Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600");
-        GroundRectangle = new Rectangle(0, GraphicsDevice.Viewport.Height - 50, 
-                                                           GraphicsDevice.Viewport.Width, 50);
-        // Думаю сделать главное меню и в ней настройки
-        // Rectangle testMainMenu = new(0, Grap);
     }
 
     protected override void Update(GameTime gameTime)
@@ -87,29 +97,39 @@ public class MainGame : Game
         Persona1.PlayerController.Update(keyboardState, Persona2.Player, GroundRectangle, GraphicsDevice);
         Persona2.PlayerController.Update(keyboardState, Persona1.Player, GroundRectangle, GraphicsDevice);
 
+        MainMenu.MenuScreenController.Update(gameTime);
+
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Black);
 
         SpriteBatch.Begin();
 
+        MainMenu.MenuScreenDrawer.Draw(SpriteBatch);
+
         // Draw landscape
-        SpriteBatch.Draw(GroundTexture, Vector2.Zero, Color.White);
+        //SpriteBatch.Draw(GroundTexture, Vector2.Zero, Color.White);
 
         // Comment for test (debug)
         // Draw ground
         // SpriteBatch.Draw(GroundTexture, GroundRectangle, Color.White);
 
-        Persona1.PlayerDrawer.Draw();
-        Persona1.PlayerDrawer.DrawHpPlayerBar(new Vector2(10, 25), true,
-                                                                    Content.Load<SpriteFont>("TestText"));
+        // Думаю сделать главное меню и в ней настройки
 
-        Persona2.PlayerDrawer.Draw();
-        Persona2.PlayerDrawer.DrawHpPlayerBar(new Vector2(480, 25), false,
-                                                                    Content.Load<SpriteFont>("TestText"));
+        // Задаем массив цветов в текстуру
+        //triangleTexture.SetData(colors);
+        //SpriteBatch.Draw(triangleTexture, testMainMenu, Color.Black);
+
+        // Persona1.PlayerDrawer.Draw();
+        // Persona1.PlayerDrawer.DrawHpPlayerBar(new Vector2(10, 25), true, Font);
+
+        // Persona2.PlayerDrawer.Draw();
+        // Persona2.PlayerDrawer.DrawHpPlayerBar(new Vector2(480, 25), false, Font);
+
+
 
         SpriteBatch.End();
 
