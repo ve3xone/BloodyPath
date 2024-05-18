@@ -37,13 +37,39 @@ public class BasePlayerDrawer
         }
     }
 
-    public void DrawHpPlayerBar(Vector2 Pos)
+    public void DrawHpPlayerBar(Vector2 Pos, bool Reverse, SpriteFont font)
     {
         // Draw HP bar background
-        SpriteBatch.Draw(PlayerHpTexture, new Rectangle((int)Pos.X, (int)Pos.Y, 100, 10), Color.Gray);
+        SpriteBatch.Draw(PlayerHpTexture, new Rectangle((int)Pos.X, (int)Pos.Y, 300, 15), Color.Gray);
 
         // Draw filled portion of HP bar
-        int fillWidth = (int)(Player.HP / (float)100 * 100);
-        SpriteBatch.Draw(PlayerHpTexture, new Rectangle((int)Pos.X, (int)Pos.Y, fillWidth, 10), Color.Red);
+        int maxWidth = 300;
+        int fillWidth = (int)(Player.HP / (float)100 * maxWidth);
+
+        // Позиция текста "Player 1"
+        Vector2 playerTextPos = new(Pos.X, Pos.Y - 28);
+
+        if (Reverse)
+        {
+            SpriteBatch.DrawString(font, "Player 1", playerTextPos, Color.White);
+            SpriteBatch.Draw(PlayerHpTexture, 
+                                      new Rectangle((int)Pos.X, (int)Pos.Y, fillWidth, 25), 
+                                      Color.Red);
+        }
+        else
+        {
+            fillWidth = (int)((1 - (Player.HP / (float)100)) * maxWidth);
+
+            // Размер текста
+            Vector2 playerTextSize = font.MeasureString("Player 2");
+
+            // Позиция текста "Player 2"
+            playerTextPos = new Vector2(Pos.X + maxWidth - playerTextSize.X + 3, Pos.Y - 28);
+
+            SpriteBatch.DrawString(font, "Player 2", playerTextPos, Color.White);
+            SpriteBatch.Draw(PlayerHpTexture, 
+                                      new Rectangle((int)Pos.X + fillWidth, (int)Pos.Y, maxWidth - fillWidth, 25), 
+                                      Color.Red);
+        }
     }
 }
