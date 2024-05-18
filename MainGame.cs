@@ -20,7 +20,14 @@ public class MainGame : Game
     {
         Graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
-        IsMouseVisible = false;
+        //Graphics.IsFullScreen = true;
+
+        // Пока что нету настроек
+        // Поэтому я оставлю эти параметры сдесь
+        Graphics.PreferredBackBufferWidth = 800;
+        Graphics.PreferredBackBufferHeight = 600;
+        Graphics.ApplyChanges();
+        IsMouseVisible = true;
     }
 
     protected override void Initialize() => base.Initialize();
@@ -33,16 +40,16 @@ public class MainGame : Game
         Persona2.Player = new(new Vector2(600, 100));
 
         Persona1.PlayerDrawer = new(SpriteBatch, 
-                                        Persona1.Player, 
-                                        Content.Load<Texture2D>("Player1"),
-                                        Content.Load<Texture2D>("Player1Damaged"),
-                                        Content.Load<Texture2D>("HPRed"));
+                                                    Persona1.Player, 
+                                                    Content.Load<Texture2D>(@"Personas\Player1"),
+                                                    Content.Load<Texture2D>(@"Personas\Player1Damaged"),
+                                                    Content.Load<Texture2D>("HPRed"));
 
         Persona2.PlayerDrawer = new(SpriteBatch,
-                                        Persona2.Player,
-                                        Content.Load<Texture2D>("Player2"),
-                                        Content.Load<Texture2D>("Player2Damaged"),
-                                        Content.Load<Texture2D>("HPRed"));
+                                                    Persona2.Player,
+                                                    Content.Load<Texture2D>(@"Personas\Player2"),
+                                                    Content.Load<Texture2D>(@"Personas\Player2Damaged"),
+                                                    Content.Load<Texture2D>("HPRed"));
 
         Persona1.PlayerKeyMappings = new()
         {
@@ -66,11 +73,11 @@ public class MainGame : Game
         // Comment for test (debug)
         // _landscapeTexture = Content.Load<Texture2D>("Landscape");
 
-        GroundTexture = Content.Load<Texture2D>("Landscape");
-        GroundRectangle = new Rectangle(0, 
-                                                           GraphicsDevice.Viewport.Height - 50, 
-                                                           GraphicsDevice.Viewport.Width, 
-                                                           50);
+        GroundTexture = Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600");
+        GroundRectangle = new Rectangle(0, GraphicsDevice.Viewport.Height - 50, 
+                                                           GraphicsDevice.Viewport.Width, 50);
+        // Думаю сделать главное меню и в ней настройки
+        // Rectangle testMainMenu = new(0, Grap);
     }
 
     protected override void Update(GameTime gameTime)
@@ -97,10 +104,14 @@ public class MainGame : Game
         // SpriteBatch.Draw(GroundTexture, GroundRectangle, Color.White);
 
         Persona1.PlayerDrawer.Draw();
-        Persona1.PlayerDrawer.DrawHpPlayerBar(new Vector2(10, 10));
+        Persona1.PlayerDrawer.DrawHpPlayerBar(new Vector2(10, 25), 
+                                                                    true,
+                                                                    Content.Load<SpriteFont>("TestText"));
 
         Persona2.PlayerDrawer.Draw();
-        Persona2.PlayerDrawer.DrawHpPlayerBar(new Vector2(690, 10));
+        Persona2.PlayerDrawer.DrawHpPlayerBar(new Vector2(480, 25), 
+                                                                    false,
+                                                                    Content.Load<SpriteFont>("TestText"));
 
         SpriteBatch.End();
 
