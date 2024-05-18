@@ -104,13 +104,11 @@ public class MainGame : Game
         // SpriteBatch.Draw(GroundTexture, GroundRectangle, Color.White);
 
         Persona1.PlayerDrawer.Draw();
-        Persona1.PlayerDrawer.DrawHpPlayerBar(new Vector2(10, 25), 
-                                                                    true,
+        Persona1.PlayerDrawer.DrawHpPlayerBar(new Vector2(10, 25), true,
                                                                     Content.Load<SpriteFont>("TestText"));
 
         Persona2.PlayerDrawer.Draw();
-        Persona2.PlayerDrawer.DrawHpPlayerBar(new Vector2(480, 25), 
-                                                                    false,
+        Persona2.PlayerDrawer.DrawHpPlayerBar(new Vector2(480, 25), false,
                                                                     Content.Load<SpriteFont>("TestText"));
 
         SpriteBatch.End();
