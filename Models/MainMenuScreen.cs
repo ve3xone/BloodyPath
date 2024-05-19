@@ -14,12 +14,15 @@ public class MainMenuScreen
     public Game Game;
     public SpriteFont Font;
     public Texture2D Background;
+    public bool IsVisible;
+    public BattleFieldScreen BattleFieldScreen;
 
     public MainMenuScreen(Game game, GraphicsDevice graphicsDevice,  SpriteFont font)
     {
         GraphicsDevice = graphicsDevice;
         Game = game;
         Font = font;
+        IsVisible = true;
     }
 
     public void LoadContent(Texture2D background)
@@ -38,7 +41,9 @@ public class MainMenuScreen
 
         PlayButton.ClickableText = new ClickableText(Font, "Play", new Vector2(25, 300), Color.White, Color.Blue, delegate
         {
-            Game.Exit();
+            //Game.Exit();
+            IsVisible = false;
+            BattleFieldScreen.IsVisible = true;
         });
         PlayButton.ClickableTextDrawer = new(PlayButton.ClickableText);
         PlayButton.ClickableTextController = new(PlayButton.ClickableText);
