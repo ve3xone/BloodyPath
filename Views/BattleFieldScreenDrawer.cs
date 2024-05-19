@@ -6,7 +6,7 @@ namespace BloodyPath.Views;
 
 public class BattleFieldScreenDrawer
 {
-    private BattleFieldScreen BattleFieldScreen;
+    private readonly BattleFieldScreen BattleFieldScreen;
 
     public BattleFieldScreenDrawer(BattleFieldScreen battleFieldScreen)
     {

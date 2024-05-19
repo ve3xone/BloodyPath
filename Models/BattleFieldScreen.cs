@@ -13,7 +13,7 @@ public class BattleFieldScreen
     public SpriteFont Font;
     public bool IsVisible;
     public Rectangle GroundRectangle;
-    private ContentManager Content;
+    private readonly ContentManager Content;
     public GraphicsDevice GraphicsDevice;
     public MainMenuScreen MainMenuScreen;
 
