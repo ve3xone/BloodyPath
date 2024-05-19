@@ -18,11 +18,15 @@ public class MainMenuScreenDrawer
         if (!MainMenuScreen.VisibilityScreens.BattleFieldIsVisible)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(MainMenuScreen.Background, Vector2.Zero, Color.White);
+
+            MainMenuScreen.AnimationBackground.AnimationPictureDrawer.Draw(spriteBatch, Vector2.Zero);
+
             spriteBatch.Draw(MainMenuScreen.Texture, MainMenuScreen.Size, Color.Black);
+
             MainMenuScreen.PlayButton.ClickableTextDrawer.Draw(spriteBatch);
             MainMenuScreen.SettingsButton.ClickableTextDrawer.Draw(spriteBatch);
             MainMenuScreen.ExitButton.ClickableTextDrawer.Draw(spriteBatch);
+
             spriteBatch.End();
         }
     }
