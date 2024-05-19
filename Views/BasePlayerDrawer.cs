@@ -8,13 +8,18 @@ public class BasePlayerDrawer
 {
     private readonly BasePlayer Player;
     public Texture2D PlayerTexture { get; private set; }
+    public Texture2D PlayerTextureReversed { get; private set; }
     public Texture2D PlayerDamagedTexture { get; private set; }
+    public Texture2D PlayerDamageHandsTexture { get; private set; }
+    public Texture2D PlayerDamageHandsTextureReversed { get; private set; }
+    public Texture2D PlayerDamageFeetTexture { get; private set; }
+    public Texture2D PlayerDamageFeetTextureReversed { get; private set; }
     public Texture2D PlayerHpTexture { get; private set; }
 
     public BasePlayerDrawer(BasePlayer player,
-                                         Texture2D playerTexture,
-                                         Texture2D playerDamagedTexture,
-                                         Texture2D playerHpTexture)
+                            Texture2D playerTexture,
+                            Texture2D playerDamagedTexture,
+                            Texture2D playerHpTexture)
     {
         Player = player;
         PlayerTexture = playerTexture;
@@ -50,8 +55,8 @@ public class BasePlayerDrawer
         {
             spriteBatch.DrawString(font, "Player 1", playerTextPos, Color.White);
             spriteBatch.Draw(PlayerHpTexture, 
-                                      new Rectangle((int)Pos.X, (int)Pos.Y, fillWidth, 25), 
-                                      Color.Red);
+                             new Rectangle((int)Pos.X, (int)Pos.Y, fillWidth, 25), 
+                             Color.Red);
         }
         else
         {
@@ -65,8 +70,8 @@ public class BasePlayerDrawer
 
             spriteBatch.DrawString(font, "Player 2", playerTextPos, Color.White);
             spriteBatch.Draw(PlayerHpTexture, 
-                                      new Rectangle((int)Pos.X + fillWidth, (int)Pos.Y, maxWidth - fillWidth, 25), 
-                                      Color.Red);
+                             new Rectangle((int)Pos.X + fillWidth, (int)Pos.Y, maxWidth - fillWidth, 25), 
+                             Color.Red);
         }
     }
 }
