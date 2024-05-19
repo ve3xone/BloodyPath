@@ -85,19 +85,19 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/Landscape_800_600.png
 
+#begin Fonts/FontBattleField.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/FontBattleField.spritefont
+
 #begin Fonts/FontMainMenu.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/FontMainMenu.spritefont
-
-#begin Fonts/TestText.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/TestText.spritefont
 
 #begin HPRed.png
 /importer:TextureImporter
