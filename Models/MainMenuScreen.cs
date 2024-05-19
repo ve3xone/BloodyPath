@@ -10,27 +10,27 @@ public class MainMenuScreen
     public readonly Button ExitButton = new();
     public Rectangle Size;
     public Texture2D Texture;
-    public GraphicsDevice GraphicsDevice;
-    public Game Game;
     public SpriteFont Font;
     public Texture2D Background;
-    public bool IsVisible;
-    public BattleFieldScreen BattleFieldScreen;
+    public VisibilityScreens VisibilityScreens;
+    private readonly Game Game;
 
-    public MainMenuScreen(Game game, GraphicsDevice graphicsDevice,  SpriteFont font)
+    public MainMenuScreen(Game game,  
+                                       SpriteFont font, 
+                                       Texture2D background, 
+                                       VisibilityScreens visibilityScreens)
     {
-        GraphicsDevice = graphicsDevice;
         Game = game;
         Font = font;
-        IsVisible = true;
+        Background = background;
+        VisibilityScreens = visibilityScreens;
     }
 
-    public void LoadContent(Texture2D background)
+    public void LoadContent()
     {
-        this.Background = background;
-        Size = new(0, 0, (int)(GraphicsDevice.Viewport.Width / 2.5), GraphicsDevice.Viewport.Height);
+        Size = new(0, 0, (int)(Game.GraphicsDevice.Viewport.Width / 2.5), Game.GraphicsDevice.Viewport.Height);
 
-        Texture = new(GraphicsDevice, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+        Texture = new(Game.GraphicsDevice, Game.GraphicsDevice.Viewport.Width, Game.GraphicsDevice.Viewport.Height);
 
         // Прозрачнность
         Color[] data = new Color[Texture.Width * Texture.Height];
@@ -42,8 +42,8 @@ public class MainMenuScreen
         PlayButton.ClickableText = new ClickableText(Font, "Play", new Vector2(25, 300), Color.White, Color.Blue, delegate
         {
             //Game.Exit();
-            IsVisible = false;
-            BattleFieldScreen.IsVisible = true;
+            VisibilityScreens.MainMenuIsVisible = false;
+            VisibilityScreens.BattleFieldIsVisible = true;
         });
         PlayButton.ClickableTextDrawer = new(PlayButton.ClickableText);
         PlayButton.ClickableTextController = new(PlayButton.ClickableText);
