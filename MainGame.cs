@@ -20,10 +20,10 @@ public class MainGame : Game
     {
         Graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
-        //Graphics.IsFullScreen = true;
 
         // Пока что нету настроек
         // Поэтому я оставлю эти параметры сдесь
+        // Graphics.IsFullScreen = true;
         Graphics.PreferredBackBufferWidth = 800;
         Graphics.PreferredBackBufferHeight = 600;
         Graphics.ApplyChanges();
@@ -39,34 +39,30 @@ public class MainGame : Game
         BackgroundTexture = Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600");
 
         MainMenu.Screen = new (this, 
-                                              Content.Load<SpriteFont>(@"Fonts\FontMainMenu"),
-                                              BackgroundTexture,
-                                              VisibilityScreens);
+                               Content.Load<SpriteFont>(@"Fonts\FontMainMenu"),
+                               VisibilityScreens);
 
         MainMenu.Screen.LoadContent();
 
         MainMenu.ScreenDrawer = new(MainMenu.Screen);
         MainMenu.ScreenController = new(MainMenu.Screen);
 
-        BattleField.Screen = new(this, 
-                                             Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
-                                             BackgroundTexture,
-                                             VisibilityScreens);
+        BattleField.Screen = new (this, 
+                                 Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
+                                 BackgroundTexture,
+                                 VisibilityScreens);
 
         BattleField.Screen.LoadContent();
 
         BattleField.ScreenDrawer = new(BattleField.Screen);
         BattleField.ScreenController = new(BattleField.Screen);
-
-        // Comment for test (debug)
-        // _landscapeTexture = Content.Load<Texture2D>("Landscape");
     }
 
     protected override void Update(GameTime gameTime)
     {
         var keyboardState = Keyboard.GetState();
 
-        MainMenu.ScreenController.Update();
+        MainMenu.ScreenController.Update(gameTime);
 
         BattleField.ScreenController.Update(keyboardState);
 
