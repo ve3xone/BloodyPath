@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using BloodyPath.Models;
-using BloodyPath.Views;
-using BloodyPath.Controllers;
 
 namespace BloodyPath;
 
@@ -14,6 +12,7 @@ public class MainGame : Game
 
     private readonly MainMenu MainMenu = new();
     private readonly BattleField BattleField = new();
+    private readonly VisibilityScreens VisibilityScreens = new();
 
     private Texture2D BackgroundTexture;
 
@@ -39,18 +38,20 @@ public class MainGame : Game
 
         BackgroundTexture = Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600");
 
-        MainMenu.Screen = new MainMenuScreen(this, GraphicsDevice, 
-                                                                              Content.Load<SpriteFont>(@"Fonts\FontMainMenu"));
-        MainMenu.Screen.LoadContent(BackgroundTexture);
+        MainMenu.Screen = new MainMenuScreen(this, 
+                                                                      Content.Load<SpriteFont>(@"Fonts\FontMainMenu"),
+                                                                      BackgroundTexture,
+                                                                      VisibilityScreens);
+
+        MainMenu.Screen.LoadContent();
 
         MainMenu.ScreenDrawer = new(MainMenu.Screen);
         MainMenu.ScreenController = new(MainMenu.Screen);
 
-        BattleField.Screen = new(GraphicsDevice, 
-                                            Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
-                                            BackgroundTexture,
-                                            Content, MainMenu.Screen);
-        MainMenu.Screen.BattleFieldScreen = BattleField.Screen;
+        BattleField.Screen = new(this, 
+                                             Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
+                                             BackgroundTexture,
+                                             VisibilityScreens);
         BattleField.Screen.LoadContent();
 
         BattleField.ScreenDrawer = new(BattleField.Screen);
