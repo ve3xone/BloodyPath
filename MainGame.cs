@@ -7,12 +7,12 @@ namespace BloodyPath;
 
 public class MainGame : Game
 {
-    private readonly GraphicsDeviceManager Graphics;
-    private SpriteBatch SpriteBatch;
-
     private readonly MainMenu MainMenu = new();
     private readonly BattleField BattleField = new();
     private readonly VisibilityScreens VisibilityScreens = new();
+
+    private readonly GraphicsDeviceManager Graphics;
+    private SpriteBatch SpriteBatch;
 
     private Texture2D BackgroundTexture;
 
@@ -38,10 +38,10 @@ public class MainGame : Game
 
         BackgroundTexture = Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600");
 
-        MainMenu.Screen = new MainMenuScreen(this, 
-                                                                      Content.Load<SpriteFont>(@"Fonts\FontMainMenu"),
-                                                                      BackgroundTexture,
-                                                                      VisibilityScreens);
+        MainMenu.Screen = new (this, 
+                                              Content.Load<SpriteFont>(@"Fonts\FontMainMenu"),
+                                              BackgroundTexture,
+                                              VisibilityScreens);
 
         MainMenu.Screen.LoadContent();
 
@@ -52,6 +52,7 @@ public class MainGame : Game
                                              Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
                                              BackgroundTexture,
                                              VisibilityScreens);
+
         BattleField.Screen.LoadContent();
 
         BattleField.ScreenDrawer = new(BattleField.Screen);
