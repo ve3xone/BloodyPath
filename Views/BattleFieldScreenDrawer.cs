@@ -15,7 +15,7 @@ public class BattleFieldScreenDrawer
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        if (BattleFieldScreen.IsVisible)
+        if (BattleFieldScreen.VisibilityScreens.BattleFieldIsVisible)
         {
             spriteBatch.Begin();
             spriteBatch.Draw(BattleFieldScreen.Background, Vector2.Zero, Color.White);

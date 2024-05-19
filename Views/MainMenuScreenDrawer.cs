@@ -15,7 +15,7 @@ public class MainMenuScreenDrawer
 
     public void Draw (SpriteBatch spriteBatch)
     {
-        if (MainMenuScreen.IsVisible)
+        if (!MainMenuScreen.VisibilityScreens.BattleFieldIsVisible)
         {
             spriteBatch.Begin();
             spriteBatch.Draw(MainMenuScreen.Background, Vector2.Zero, Color.White);
