@@ -1,6 +1,5 @@
-﻿using BloodyPath.Models;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
+using BloodyPath.Models;
 
 namespace BloodyPath.Controllers;
 
@@ -18,19 +17,19 @@ public class BattleFieldScreenController
         BattleFieldScreen.Persona1.PlayerController.Update(keyboardState, 
                                                                                    BattleFieldScreen.Persona2.Player, 
                                                                                    BattleFieldScreen.GroundRectangle, 
-                                                                                   BattleFieldScreen.GraphicsDevice);
+                                                                                   BattleFieldScreen.Game.GraphicsDevice);
 
         BattleFieldScreen.Persona2.PlayerController.Update(keyboardState, 
                                                                                    BattleFieldScreen.Persona1.Player, 
                                                                                    BattleFieldScreen.GroundRectangle, 
-                                                                                   BattleFieldScreen.GraphicsDevice);
+                                                                                   BattleFieldScreen.Game.GraphicsDevice);
 
         if (Keyboard.GetState().IsKeyDown(Keys.Escape))
         {
-            BattleFieldScreen.MainMenuScreen.IsVisible = true;
+            BattleFieldScreen.VisibilityScreens.MainMenuIsVisible = true;
             BattleFieldScreen.ResetScreen();
 
-            BattleFieldScreen.IsVisible = false;
+            BattleFieldScreen.VisibilityScreens.BattleFieldIsVisible = false;
         }
     }
 }
