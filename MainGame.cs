@@ -11,15 +11,11 @@ public class MainGame : Game
 {
     private readonly GraphicsDeviceManager Graphics;
     private SpriteBatch SpriteBatch;
-    private SpriteFont Font;
 
-    private MainMenu MainMenu = new();
+    private readonly MainMenu MainMenu = new();
+    private readonly BattleField BattleField = new();
 
-    private readonly Persona Persona1 = new();
-    private readonly Persona Persona2 = new();
-
-    private Texture2D GroundTexture;
-    private Rectangle GroundRectangle;
+    private Texture2D BackgroundTexture;
 
     public MainGame()
     {
@@ -40,52 +36,26 @@ public class MainGame : Game
     protected override void LoadContent()
     {
         SpriteBatch = new SpriteBatch(GraphicsDevice);
-        Font = Content.Load<SpriteFont>(@"Fonts\FontMainMenu");
 
-        GroundTexture = Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600");
-        GroundRectangle = new Rectangle(0, GraphicsDevice.Viewport.Height - 50,
-                                                           GraphicsDevice.Viewport.Width, 50);
+        BackgroundTexture = Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600");
 
-        MainMenu.MenuScreen = new MainMenuScreen(this, GraphicsDevice, Font);
-        MainMenu.MenuScreen.LoadContent(GroundTexture);
+        MainMenu.Screen = new MainMenuScreen(this, GraphicsDevice, 
+                                                                              Content.Load<SpriteFont>(@"Fonts\FontMainMenu"));
+        MainMenu.Screen.LoadContent(BackgroundTexture);
 
-        MainMenu.MenuScreenDrawer = new(MainMenu.MenuScreen);
-        MainMenu.MenuScreenController = new(MainMenu.MenuScreen);
+        MainMenu.ScreenDrawer = new(MainMenu.Screen);
+        MainMenu.ScreenController = new(MainMenu.Screen);
 
-        Persona1.Player = new(new Vector2(100, 100));
-        Persona2.Player = new(new Vector2(600, 100));
+        BattleField.Screen = new(GraphicsDevice, 
+                                            Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
+                                            BackgroundTexture,
+                                            Content, MainMenu.Screen);
+        MainMenu.Screen.BattleFieldScreen = BattleField.Screen;
+        BattleField.Screen.LoadContent();
 
-        Persona1.PlayerDrawer = new(SpriteBatch, 
-                                                    Persona1.Player, 
-                                                    Content.Load<Texture2D>(@"Personas\Player1"),
-                                                    Content.Load<Texture2D>(@"Personas\Player1Damaged"),
-                                                    Content.Load<Texture2D>("HPRed"));
+        BattleField.ScreenDrawer = new(BattleField.Screen);
+        BattleField.ScreenController = new(BattleField.Screen);
 
-        Persona2.PlayerDrawer = new(SpriteBatch,
-                                                    Persona2.Player,
-                                                    Content.Load<Texture2D>(@"Personas\Player2"),
-                                                    Content.Load<Texture2D>(@"Personas\Player2Damaged"),
-                                                    Content.Load<Texture2D>("HPRed"));
-
-        Persona1.PlayerKeyMappings = new()
-        {
-            { "Left", Keys.A },
-            { "Right", Keys.D },
-            { "Down", Keys.S },
-            { "Up", Keys.W },
-            { "Attack", Keys.Space }
-        };
-        Persona2.PlayerKeyMappings = new()
-        {
-            { "Left", Keys.Left },
-            { "Right", Keys.Right },
-            { "Down", Keys.Down },
-            { "Up", Keys.Up },
-            { "Attack", Keys.Enter }
-        };
-        Persona1.PlayerController = new(Persona1.Player, Persona1.PlayerDrawer, Persona1.PlayerKeyMappings);
-        Persona2.PlayerController = new(Persona2.Player, Persona2.PlayerDrawer, Persona2.PlayerKeyMappings);
-        
         // Comment for test (debug)
         // _landscapeTexture = Content.Load<Texture2D>("Landscape");
     }
@@ -94,10 +64,9 @@ public class MainGame : Game
     {
         var keyboardState = Keyboard.GetState();
 
-        Persona1.PlayerController.Update(keyboardState, Persona2.Player, GroundRectangle, GraphicsDevice);
-        Persona2.PlayerController.Update(keyboardState, Persona1.Player, GroundRectangle, GraphicsDevice);
+        MainMenu.ScreenController.Update(gameTime);
 
-        MainMenu.MenuScreenController.Update(gameTime);
+        BattleField.ScreenController.Update(keyboardState);
 
         base.Update(gameTime);
     }
@@ -106,32 +75,9 @@ public class MainGame : Game
     {
         GraphicsDevice.Clear(Color.Black);
 
-        SpriteBatch.Begin();
+        MainMenu.ScreenDrawer.Draw(SpriteBatch);
 
-        MainMenu.MenuScreenDrawer.Draw(SpriteBatch);
-
-        // Draw landscape
-        //SpriteBatch.Draw(GroundTexture, Vector2.Zero, Color.White);
-
-        // Comment for test (debug)
-        // Draw ground
-        // SpriteBatch.Draw(GroundTexture, GroundRectangle, Color.White);
-
-        // Думаю сделать главное меню и в ней настройки
-
-        // Задаем массив цветов в текстуру
-        //triangleTexture.SetData(colors);
-        //SpriteBatch.Draw(triangleTexture, testMainMenu, Color.Black);
-
-        // Persona1.PlayerDrawer.Draw();
-        // Persona1.PlayerDrawer.DrawHpPlayerBar(new Vector2(10, 25), true, Font);
-
-        // Persona2.PlayerDrawer.Draw();
-        // Persona2.PlayerDrawer.DrawHpPlayerBar(new Vector2(480, 25), false, Font);
-
-
-
-        SpriteBatch.End();
+        BattleField.ScreenDrawer.Draw(SpriteBatch);
 
         base.Draw(gameTime);
     }
