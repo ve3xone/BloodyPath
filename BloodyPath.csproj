@@ -8,16 +8,19 @@
     <Platforms>AnyCPU;x86;x64;ARM32;ARM64</Platforms>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationManifest>Content\app.manifest</ApplicationManifest>
+    <ApplicationIcon>Content\Icons\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Icon.ico" />
-    <EmbeddedResource Include="Icon.bmp" />
+    <Content Include="Content\Icons\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Icons\Icon.ico" />
+    <EmbeddedResource Include="Content\Icons\Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
