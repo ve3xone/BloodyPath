@@ -17,7 +17,12 @@ public class ClickableText
     public MouseState PreviousMouseState;
     public readonly Action OnClickAction;
 
-    public ClickableText(SpriteFont font, string text, Vector2 position, Color defaultColor, Color hoverColor, Action onClickAction)
+    public ClickableText(SpriteFont font, 
+                         string text, 
+                         Vector2 position, 
+                         Color defaultColor, 
+                         Color hoverColor, 
+                         Action onClickAction)
     {
         Font = font;
         Text = text;
@@ -28,6 +33,7 @@ public class ClickableText
         OnClickAction = onClickAction;
 
         Vector2 textSize = Font.MeasureString(Text);
-        BoundingBox = new Rectangle((int)Position.X, (int)Position.Y, (int)textSize.X, (int)textSize.Y);
+        BoundingBox = new Rectangle((int)Position.X, (int)Position.Y, 
+                                    (int)textSize.X, (int)textSize.Y);
     }
 }

@@ -20,8 +20,8 @@ public class BasePlayerController
     public Dictionary<string, Keys> KeyMappings { private get; set; }
 
     public BasePlayerController(BasePlayer player,
-                                            BasePlayerDrawer playerDrawer,
-                                            Dictionary<string, Keys> keyMappings)
+                                BasePlayerDrawer playerDrawer,
+                                Dictionary<string, Keys> keyMappings)
     {
         Player = player;
         PlayerDrawer = playerDrawer;
@@ -29,9 +29,9 @@ public class BasePlayerController
     }
 
     public void Update(KeyboardState keyboardState,
-                                BasePlayer otherPlayer,
-                                Rectangle groundRectangle,
-                                GraphicsDevice gd)
+                       BasePlayer otherPlayer,
+                       Rectangle groundRectangle,
+                       GraphicsDevice gd)
     {
         // Move player based on keyboard input
         // Player movement
@@ -63,7 +63,7 @@ public class BasePlayerController
             VerticalVelocity += Gravity;
 
         Player.Position.Y = Math.Min(Player.Position.Y + VerticalVelocity,
-                                                   gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height);
+                                     gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height);
         VerticalVelocity = Math.Min(VerticalVelocity, MaxFallSpeed);
 
         // Attack logic
@@ -86,7 +86,7 @@ public class BasePlayerController
     {
         // Простой пример проверки на ландшафт: позиция является допустимой, если она находится в пределах экрана
         return position.X >= 0 && position.Y >= 0 &&
-                  position.X <= gd.Viewport.Width - PlayerDrawer.PlayerTexture.Width &&
-                  position.Y <= gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height;
+               position.X <= gd.Viewport.Width - PlayerDrawer.PlayerTexture.Width &&
+               position.Y <= gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height;
     }
 }

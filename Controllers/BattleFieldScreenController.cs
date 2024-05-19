@@ -15,14 +15,14 @@ public class BattleFieldScreenController
     public void Update(KeyboardState keyboardState)
     {
         BattleFieldScreen.Persona1.PlayerController.Update(keyboardState, 
-                                                                                   BattleFieldScreen.Persona2.Player, 
-                                                                                   BattleFieldScreen.GroundRectangle, 
-                                                                                   BattleFieldScreen.Game.GraphicsDevice);
+                                                           BattleFieldScreen.Persona2.Player, 
+                                                           BattleFieldScreen.GroundRectangle, 
+                                                           BattleFieldScreen.Game.GraphicsDevice);
 
         BattleFieldScreen.Persona2.PlayerController.Update(keyboardState, 
-                                                                                   BattleFieldScreen.Persona1.Player, 
-                                                                                   BattleFieldScreen.GroundRectangle, 
-                                                                                   BattleFieldScreen.Game.GraphicsDevice);
+                                                           BattleFieldScreen.Persona1.Player, 
+                                                           BattleFieldScreen.GroundRectangle, 
+                                                           BattleFieldScreen.Game.GraphicsDevice);
 
         if (Keyboard.GetState().IsKeyDown(Keys.Escape))
         {

@@ -16,9 +16,9 @@ public class BattleFieldScreen
     public readonly Game Game;
 
     public BattleFieldScreen(Game game,
-                                        SpriteFont battlefieldFont, 
-                                        Texture2D background,
-                                        VisibilityScreens VisibilityScreens)
+                             SpriteFont battlefieldFont, 
+                             Texture2D background,
+                             VisibilityScreens VisibilityScreens)
     {
         this.Font = battlefieldFont;
         this.Game = game;
@@ -29,20 +29,20 @@ public class BattleFieldScreen
     public void LoadContent()
     {
         GroundRectangle = new Rectangle(0, Game.GraphicsDevice.Viewport.Height - 50,
-                                                           Game.GraphicsDevice.Viewport.Width, 50);
+                                        Game.GraphicsDevice.Viewport.Width, 50);
 
         Persona1.Player = new(new Vector2(100, 400));
         Persona2.Player = new(new Vector2(600, 400));
 
         Persona1.PlayerDrawer = new(Persona1.Player,
-                                                    Game.Content.Load<Texture2D>(@"Personas\Player1"),
-                                                    Game.Content.Load<Texture2D>(@"Personas\Player1Damaged"),
-                                                    Game.Content.Load<Texture2D>("HPRed"));
+                                    Game.Content.Load<Texture2D>(@"Personas\Player1"),
+                                    Game.Content.Load<Texture2D>(@"Personas\Player1Damaged"),
+                                    Game.Content.Load<Texture2D>("HPRed"));
 
         Persona2.PlayerDrawer = new(Persona2.Player,
-                                                    Game.Content.Load<Texture2D>(@"Personas\Player2"),
-                                                    Game.Content.Load<Texture2D>(@"Personas\Player2Damaged"),
-                                                    Game.Content.Load<Texture2D>("HPRed"));
+                                    Game.Content.Load<Texture2D>(@"Personas\Player2"),
+                                    Game.Content.Load<Texture2D>(@"Personas\Player2Damaged"),
+                                    Game.Content.Load<Texture2D>("HPRed"));
 
         Persona1.PlayerKeyMappings = new()
         {
@@ -60,6 +60,7 @@ public class BattleFieldScreen
             { "Up", Keys.Up },
             { "Attack", Keys.Enter }
         };
+
         Persona1.PlayerController = new(Persona1.Player, Persona1.PlayerDrawer, Persona1.PlayerKeyMappings);
         Persona2.PlayerController = new(Persona2.Player, Persona2.PlayerDrawer, Persona2.PlayerKeyMappings);
     }

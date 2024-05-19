@@ -19,7 +19,9 @@ public class ClickableTextController
 
         ClickableText.IsHovering = ClickableText.BoundingBox.Contains(mousePosition);
 
-        if (ClickableText.IsHovering && mouseState.LeftButton == ButtonState.Pressed && ClickableText.PreviousMouseState.LeftButton == ButtonState.Released)
+        if (ClickableText.IsHovering &&
+            mouseState.LeftButton == ButtonState.Pressed &&
+            ClickableText.PreviousMouseState.LeftButton == ButtonState.Released)
         {
             ClickableText.OnClickAction?.Invoke();
         }
