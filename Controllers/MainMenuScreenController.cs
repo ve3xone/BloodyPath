@@ -11,11 +11,11 @@ namespace BloodyPath.Controllers
             this.MainMenuScreen = mainMenuScreen;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
-            MainMenuScreen.PlayButton.ClickableTextController.Update(gameTime);
-            MainMenuScreen.SettingsButton.ClickableTextController.Update(gameTime);
-            MainMenuScreen.ExitButton.ClickableTextController.Update(gameTime);
+            MainMenuScreen.PlayButton.ClickableTextController.Update();
+            MainMenuScreen.SettingsButton.ClickableTextController.Update();
+            MainMenuScreen.ExitButton.ClickableTextController.Update();
         }
     }
 }

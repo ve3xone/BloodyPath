@@ -64,7 +64,7 @@ public class MainGame : Game
     {
         var keyboardState = Keyboard.GetState();
 
-        MainMenu.ScreenController.Update(gameTime);
+        MainMenu.ScreenController.Update();
 
         BattleField.ScreenController.Update(keyboardState);
 

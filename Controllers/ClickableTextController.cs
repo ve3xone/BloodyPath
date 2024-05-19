@@ -12,7 +12,7 @@ public class ClickableTextController
         this.ClickableText = clickableText;
     }
 
-    public void Update(GameTime gameTime)
+    public void Update()
     {
         MouseState mouseState = Mouse.GetState();
         Point mousePosition = new(mouseState.X, mouseState.Y);
