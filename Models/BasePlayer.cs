@@ -8,11 +8,12 @@ public class BasePlayer
     public bool IsAttackingHands { get; set; }
     public bool IsAttackingFeet { get; set; }
     public bool IsDucked { get; set; }
-    public bool IsKilled { get; set; }
+    public bool IsBot { get; set; } = false;
     public bool IsLeftTexture { get; set; }
 
     public int Number { get; set; }
     public Vector2 Position = Vector2.Zero;
+    public Vector2 DefalutPosition = Vector2.Zero;
     public int HP = 100;
     public int Victories = 0;
     public readonly int PlayerSpeed = 3;
@@ -21,10 +22,11 @@ public class BasePlayer
     public BasePlayer(Vector2 position, bool isLeftTexture, int number)
     {
         Position = position;
-        IsAttackingHands = true;
-        IsAttackingFeet = true;
-        IsLeftTexture = isLeftTexture;
+        IsAttackingHands = false;
+        IsAttackingFeet = false;
         IsDucked = false;
+        IsLeftTexture = isLeftTexture;
+        DefalutPosition = position;
         Number = number;
     }
 }
