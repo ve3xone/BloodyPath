@@ -59,7 +59,6 @@ public class BasePlayerDrawer
         }
         else
         {
-            //spriteBatch.Draw(PlayerTexture, Player.Position, Color.White);
             if (Player.IsLeftTexture)
                 spriteBatch.Draw(PlayerTexture, Player.Position, Color.White);
             else
