@@ -64,7 +64,7 @@ public class MainGame : Game
 
         MainMenu.ScreenController.Update(gameTime);
 
-        BattleField.ScreenController.Update(keyboardState);
+        BattleField.ScreenController.Update(gameTime,keyboardState);
 
         base.Update(gameTime);
     }
