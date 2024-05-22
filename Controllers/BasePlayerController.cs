@@ -45,11 +45,23 @@ public class BasePlayerController
 
         if (keyboardState.IsKeyDown(KeyMappings["Left"]) &&
             CanMove(new Vector2(Player.Position.X - Player.PlayerSpeed, Player.Position.Y), gd))
+        {
+            Player.IsLeftTexture = false;
             Player.Position.X -= Player.PlayerSpeed;
+        }
+            
 
         if (keyboardState.IsKeyDown(KeyMappings["Right"]) &&
             CanMove(new Vector2(Player.Position.X + Player.PlayerSpeed, Player.Position.Y), gd))
+        {
+            Player.IsLeftTexture = true;
             Player.Position.X += Player.PlayerSpeed;
+        }
+
+        if (keyboardState.IsKeyDown(KeyMappings["Duck"]))
+            Player.IsDucked = true;
+        else if (keyboardState.IsKeyUp(KeyMappings["Duck"]))
+            Player.IsDucked = false;
 
         // Check collision with ground
         if (Player.Position.Y + PlayerDrawer.PlayerTexture.Height >= groundRectangle.Y)
@@ -67,24 +79,41 @@ public class BasePlayerController
         VerticalVelocity = Math.Min(VerticalVelocity, MaxFallSpeed);
 
         // Attack logic
-        if (keyboardState.IsKeyDown(KeyMappings["Attack"]) && !Player.IsAttacking)
+        if (keyboardState.IsKeyDown(KeyMappings["AttackHands"]) && 
+            !Player.IsAttackingHands)
         {
-            Player.IsAttacking = true;
-            // Ширина player'a и другого player'a
+            Player.IsAttackingHands = true;
+            if (Vector2.Distance(Player.Position, otherPlayer.Position) < PlayerDrawer.PlayerTexture.Width &&
+                !otherPlayer.IsDucked)
+                if (Player.IsLeftTexture && Player.Position.X < otherPlayer.Position.X ||
+                    !Player.IsLeftTexture && Player.Position.X > otherPlayer.Position.X)
+                    otherPlayer.HP -= Player.AttackDamage;
+        }
+        else if (keyboardState.IsKeyUp(KeyMappings["AttackHands"]))
+            Player.IsAttackingHands = false;
+
+        if (keyboardState.IsKeyDown(KeyMappings["AttackFeet"]) &&
+            !Player.IsAttackingFeet)
+        {
+            Player.IsAttackingFeet = true;
+
             if (Vector2.Distance(Player.Position, otherPlayer.Position) < PlayerDrawer.PlayerTexture.Width)
-                otherPlayer.HP -= Player.AttackDamage;
+            {
+                if (Player.IsLeftTexture && Player.Position.X < otherPlayer.Position.X ||
+                    !Player.IsLeftTexture && Player.Position.X > otherPlayer.Position.X)
+                    otherPlayer.HP -= Player.AttackDamage;
+            }
         }
-        else if (keyboardState.IsKeyUp(KeyMappings["Attack"]))
-        {
-            Player.IsAttacking = false;
-        }
+        else if (keyboardState.IsKeyUp(KeyMappings["AttackFeet"]))
+            Player.IsAttackingFeet = false;
 
         Player.HP = Math.Max(0, Player.HP);
     }
 
     private bool CanMove(Vector2 position, GraphicsDevice gd)
     {
-        // Простой пример проверки на ландшафт: позиция является допустимой, если она находится в пределах экрана
+        // Простой пример проверки на ландшафт: позиция является допустимой,
+        // если она находится в пределах экрана
         return position.X >= 0 && position.Y >= 0 &&
                position.X <= gd.Viewport.Width - PlayerDrawer.PlayerTexture.Width &&
                position.Y <= gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height;
