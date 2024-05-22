@@ -200,7 +200,6 @@ namespace BloodyPath.Controller
         private void ResetPlayers(BasePlayer otherPlayer)
         {
             Player.HP = 100;
-            Player.IsDie = false;
             otherPlayer.HP = 100;
             Player.Position = Player.DefalutPosition;
             otherPlayer.Position = otherPlayer.DefalutPosition;
