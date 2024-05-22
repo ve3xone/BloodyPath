@@ -9,7 +9,7 @@ public class BasePlayerDrawer
     private readonly BasePlayer Player;
     public Texture2D PlayerTexture { get; private set; }
     public Texture2D PlayerTextureReversed { get; private set; }
-    public Texture2D PlayerDamagedTexture { get; private set; }
+    public Texture2D PlayerTextureDucked { get; private set; }
     public Texture2D PlayerDamageHandsTexture { get; private set; }
     public Texture2D PlayerDamageHandsTextureReversed { get; private set; }
     public Texture2D PlayerDamageFeetTexture { get; private set; }
@@ -18,24 +18,52 @@ public class BasePlayerDrawer
 
     public BasePlayerDrawer(BasePlayer player,
                             Texture2D playerTexture,
-                            Texture2D playerDamagedTexture,
+                            Texture2D playerTextureReversed,
+                            Texture2D playerTextureDucked,
+                            Texture2D playerDamageHandsTexture,
+                            Texture2D playerDamageHandsTextureReversed,
+                            Texture2D playerDamageFeetTexture,
+                            Texture2D playerDamageFeetTextureReversed,
                             Texture2D playerHpTexture)
     {
         Player = player;
         PlayerTexture = playerTexture;
-        PlayerDamagedTexture = playerDamagedTexture;
+        PlayerTextureReversed = playerTextureReversed;
+        PlayerTextureDucked = playerTextureDucked;
+        PlayerDamageHandsTexture = playerDamageHandsTexture;
+        PlayerDamageHandsTextureReversed = playerDamageHandsTextureReversed;
+        PlayerDamageFeetTexture = playerDamageFeetTexture;
+        PlayerDamageFeetTextureReversed = playerDamageFeetTextureReversed;
         PlayerHpTexture = playerHpTexture;
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        if (Player.IsAttacking)
+        if (Player.IsAttackingHands)
         {
-            spriteBatch.Draw(PlayerDamagedTexture, Player.Position, Color.White);
+            if (Player.IsLeftTexture)
+                spriteBatch.Draw(PlayerDamageHandsTexture, Player.Position, Color.White);
+            else
+                spriteBatch.Draw(PlayerDamageHandsTextureReversed, Player.Position, Color.White);
+        }
+        else if (Player.IsAttackingFeet)
+        {
+            if (Player.IsLeftTexture)
+                spriteBatch.Draw(PlayerDamageFeetTexture, Player.Position, Color.White);
+            else
+                spriteBatch.Draw(PlayerDamageFeetTextureReversed, Player.Position, Color.White);
+        }
+        else if (Player.IsDucked)
+        {
+            spriteBatch.Draw(PlayerTextureDucked, Player.Position, Color.White);
         }
         else
         {
-            spriteBatch.Draw(PlayerTexture, Player.Position, Color.White);
+            //spriteBatch.Draw(PlayerTexture, Player.Position, Color.White);
+            if (Player.IsLeftTexture)
+                spriteBatch.Draw(PlayerTexture, Player.Position, Color.White);
+            else
+                spriteBatch.Draw(PlayerTextureReversed, Player.Position, Color.White);
         }
     }
 
