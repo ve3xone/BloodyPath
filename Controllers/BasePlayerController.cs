@@ -6,116 +6,211 @@ using Microsoft.Xna.Framework.Input;
 using BloodyPath.Models;
 using BloodyPath.View;
 
-namespace BloodyPath.Controller;
-
-public class BasePlayerController
+namespace BloodyPath.Controller
 {
-    private readonly BasePlayer Player;
-    private readonly BasePlayerDrawer PlayerDrawer;
-
-    private const float MaxFallSpeed = 10f; // Максимальная скорость падения
-    private const float Gravity = 0.5f; // Ускорение свободного падения
-    private float VerticalVelocity = 0f; // Вертикальная скорость игрока
-
-    public Dictionary<string, Keys> KeyMappings { private get; set; }
-
-    public BasePlayerController(BasePlayer player,
-                                BasePlayerDrawer playerDrawer,
-                                Dictionary<string, Keys> keyMappings)
+    public class BasePlayerController
     {
-        Player = player;
-        PlayerDrawer = playerDrawer;
-        KeyMappings = keyMappings;
-    }
+        private readonly BasePlayer Player;
+        private readonly BasePlayerDrawer PlayerDrawer;
+        private const float MaxFallSpeed = 10f;
+        private const float Gravity = 0.2f;
+        private float VerticalVelocity = 0f;
+        public Dictionary<string, Keys> KeyMappings { private get; set; }
 
-    public void Update(KeyboardState keyboardState,
-                       BasePlayer otherPlayer,
-                       Rectangle groundRectangle,
-                       GraphicsDevice gd)
-    {
-        // Move player based on keyboard input
-        // Player movement
-        if (keyboardState.IsKeyDown(KeyMappings["Up"]) &&
-            CanMove(new Vector2(Player.Position.X, Player.Position.Y - Player.PlayerSpeed), gd))
-            Player.Position.Y -= Player.PlayerSpeed;
+        private float attackTimer;
+        private const float attackInterval = 0.35f;
+        private const float attackAnimationDuration = 0.25f;
+        private bool previousKeyState = false;
 
-        if (keyboardState.IsKeyDown(KeyMappings["Down"]) &&
-            CanMove(new Vector2(Player.Position.X, Player.Position.Y + Player.PlayerSpeed), gd))
-            Player.Position.Y += Player.PlayerSpeed;
-
-        if (keyboardState.IsKeyDown(KeyMappings["Left"]) &&
-            CanMove(new Vector2(Player.Position.X - Player.PlayerSpeed, Player.Position.Y), gd))
+        public BasePlayerController(BasePlayer player, BasePlayerDrawer playerDrawer, Dictionary<string, Keys> keyMappings)
         {
-            Player.IsLeftTexture = false;
-            Player.Position.X -= Player.PlayerSpeed;
-        }
-            
-
-        if (keyboardState.IsKeyDown(KeyMappings["Right"]) &&
-            CanMove(new Vector2(Player.Position.X + Player.PlayerSpeed, Player.Position.Y), gd))
-        {
-            Player.IsLeftTexture = true;
-            Player.Position.X += Player.PlayerSpeed;
+            Player = player;
+            PlayerDrawer = playerDrawer;
+            KeyMappings = keyMappings;
         }
 
-        if (keyboardState.IsKeyDown(KeyMappings["Duck"]))
-            Player.IsDucked = true;
-        else if (keyboardState.IsKeyUp(KeyMappings["Duck"]))
-            Player.IsDucked = false;
-
-        // Check collision with ground
-        if (Player.Position.Y + PlayerDrawer.PlayerTexture.Height >= groundRectangle.Y)
+        public void Update(GameTime gameTime, KeyboardState keyboardState, BasePlayer otherPlayer, Rectangle groundRectangle, GraphicsDevice gd)
         {
-            Player.Position.Y = groundRectangle.Y - PlayerDrawer.PlayerTexture.Height;
-            VerticalVelocity = 0f;
+            float elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (Player.Number == 1)
+            {
+                bool currentKeyState = keyboardState.IsKeyDown(KeyMappings["BotEnableAndDisable"]);
+                if (currentKeyState && !previousKeyState)
+                    Player.IsBot = !Player.IsBot;
+                previousKeyState = currentKeyState;
+            }
+
+            if (!Player.IsBot)
+            {
+                HandlePlayerMovement(keyboardState, gd);
+                HandlePlayerAttacks(keyboardState, otherPlayer);
+            }
+            else
+            {
+                HandleBotMovementAndAttack(elapsedSeconds, otherPlayer);
+            }
+
+            ApplyGravityAndCheckGroundCollision(groundRectangle, gd);
+            ResetPlayerIfDead(otherPlayer);
         }
 
-        // Apply gravity
-        if (Player.Position.Y < groundRectangle.Y - PlayerDrawer.PlayerTexture.Height)
-            VerticalVelocity += Gravity;
-
-        Player.Position.Y = Math.Min(Player.Position.Y + VerticalVelocity,
-                                     gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height);
-        VerticalVelocity = Math.Min(VerticalVelocity, MaxFallSpeed);
-
-        // Attack logic
-        if (keyboardState.IsKeyDown(KeyMappings["AttackHands"]) && 
-            !Player.IsAttackingHands)
+        private void HandlePlayerMovement(KeyboardState keyboardState, GraphicsDevice gd)
         {
-            Player.IsAttackingHands = true;
-            if (Vector2.Distance(Player.Position, otherPlayer.Position) < PlayerDrawer.PlayerTexture.Width &&
-                !otherPlayer.IsDucked)
-                if (Player.IsLeftTexture && Player.Position.X < otherPlayer.Position.X ||
-                    !Player.IsLeftTexture && Player.Position.X > otherPlayer.Position.X)
-                    otherPlayer.HP -= Player.AttackDamage;
+            Vector2 newPosition = Player.Position;
+
+            if (keyboardState.IsKeyDown(KeyMappings["Up"]) && CanMove(new Vector2(newPosition.X, newPosition.Y - Player.PlayerSpeed), gd))
+                newPosition.Y -= Player.PlayerSpeed;
+            if (keyboardState.IsKeyDown(KeyMappings["Down"]) && CanMove(new Vector2(newPosition.X, newPosition.Y + Player.PlayerSpeed), gd))
+                newPosition.Y += Player.PlayerSpeed;
+            if (keyboardState.IsKeyDown(KeyMappings["Left"]) && CanMove(new Vector2(newPosition.X - Player.PlayerSpeed, newPosition.Y), gd))
+            {
+                Player.IsLeftTexture = false;
+                newPosition.X -= Player.PlayerSpeed;
+            }
+            if (keyboardState.IsKeyDown(KeyMappings["Right"]) && CanMove(new Vector2(newPosition.X + Player.PlayerSpeed, newPosition.Y), gd))
+            {
+                Player.IsLeftTexture = true;
+                newPosition.X += Player.PlayerSpeed;
+            }
+
+            Player.Position = newPosition;
+            Player.IsDucked = keyboardState.IsKeyDown(KeyMappings["Duck"]);
         }
-        else if (keyboardState.IsKeyUp(KeyMappings["AttackHands"]))
-            Player.IsAttackingHands = false;
 
-        if (keyboardState.IsKeyDown(KeyMappings["AttackFeet"]) &&
-            !Player.IsAttackingFeet)
+        private void HandlePlayerAttacks(KeyboardState keyboardState, BasePlayer otherPlayer)
         {
-            Player.IsAttackingFeet = true;
+            if (keyboardState.IsKeyDown(KeyMappings["AttackHands"]) && !Player.IsAttackingHands)
+                PerformAttack(otherPlayer, false);
 
+            if (keyboardState.IsKeyDown(KeyMappings["AttackFeet"]) && !Player.IsAttackingFeet)
+                PerformAttack(otherPlayer, true);
+
+            Player.IsAttackingHands = keyboardState.IsKeyDown(KeyMappings["AttackHands"]);
+            Player.IsAttackingFeet = keyboardState.IsKeyDown(KeyMappings["AttackFeet"]);
+        }
+
+        private void PerformAttack(BasePlayer otherPlayer, bool isFeetAttack)
+        {
             if (Vector2.Distance(Player.Position, otherPlayer.Position) < PlayerDrawer.PlayerTexture.Width)
             {
-                if (Player.IsLeftTexture && Player.Position.X < otherPlayer.Position.X ||
-                    !Player.IsLeftTexture && Player.Position.X > otherPlayer.Position.X)
+                bool isPlayerOnCorrectSide = Player.IsLeftTexture && Player.Position.X < otherPlayer.Position.X ||
+                                             !Player.IsLeftTexture && Player.Position.X > otherPlayer.Position.X;
+                if (isPlayerOnCorrectSide)
+                {
                     otherPlayer.HP -= Player.AttackDamage;
+                    if (isFeetAttack)
+                        Player.IsAttackingFeet = true;
+                    else
+                        Player.IsAttackingHands = true;
+                }
             }
         }
-        else if (keyboardState.IsKeyUp(KeyMappings["AttackFeet"]))
+
+        private void HandleBotMovementAndAttack(float elapsedSeconds, BasePlayer otherPlayer)
+        {
+            if (Vector2.Distance(Player.Position, otherPlayer.Position) > PlayerDrawer.PlayerTexture.Width - 60)
+            {
+                MoveTowardsOtherPlayer(otherPlayer);
+            }
+            else
+            {
+                HandleBotAttack(elapsedSeconds, otherPlayer);
+            }
+        }
+
+        private void MoveTowardsOtherPlayer(BasePlayer otherPlayer)
+        {
             Player.IsAttackingFeet = false;
+            Player.IsAttackingHands = false;
+            Player.IsLeftTexture = otherPlayer.Position.X > Player.Position.X;
+            Player.Position += new Vector2(Player.IsLeftTexture ? 1 : -1, 0);
+        }
 
-        Player.HP = Math.Max(0, Player.HP);
-    }
+        private void HandleBotAttack(float elapsedSeconds, BasePlayer otherPlayer)
+        {
+            attackTimer += elapsedSeconds;
+            if (attackTimer >= attackInterval)
+            {
+                attackTimer = 0f;
+                PerformBotAttack(otherPlayer);
+            }
+            else if (attackTimer >= attackAnimationDuration)
+            {
+                Player.IsAttackingFeet = false;
+                Player.IsAttackingHands = false;
+            }
+        }
 
-    private bool CanMove(Vector2 position, GraphicsDevice gd)
-    {
-        // Простой пример проверки на ландшафт: позиция является допустимой,
-        // если она находится в пределах экрана
-        return position.X >= 0 && position.Y >= 0 &&
-               position.X <= gd.Viewport.Width - PlayerDrawer.PlayerTexture.Width &&
-               position.Y <= gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height;
+        private void PerformBotAttack(BasePlayer otherPlayer)
+        {
+            bool isWithinReach = Vector2.Distance(Player.Position, otherPlayer.Position) < PlayerDrawer.PlayerTexture.Width;
+            bool isPlayerOnCorrectSide = Player.IsLeftTexture && Player.Position.X < otherPlayer.Position.X ||
+                                         !Player.IsLeftTexture && Player.Position.X > otherPlayer.Position.X;
+
+            // Проверка на то, что бот находится в пределах атаки и игрок не заблокировал атаку
+            if (isWithinReach)
+            {
+                if (isPlayerOnCorrectSide)
+                {
+                    otherPlayer.HP -= Player.AttackDamage;
+                    if (otherPlayer.IsDucked)
+                        Player.IsAttackingFeet = true;
+                    else
+                        Player.IsAttackingHands = true;
+                }
+                // Даже если игрок находится на одной линии с ботом, и бот находится в пределах атаки,
+                // бот может все равно атаковать, даже если игрок находится перед ним
+                else
+                {
+                    otherPlayer.HP -= Player.AttackDamage;
+                    if (otherPlayer.IsDucked)
+                        Player.IsAttackingFeet = true;
+                    else
+                        Player.IsAttackingHands = true;
+                }
+            }
+        }
+
+        private void ApplyGravityAndCheckGroundCollision(Rectangle groundRectangle, GraphicsDevice gd)
+        {
+            if (Player.Position.Y + PlayerDrawer.PlayerTexture.Height >= groundRectangle.Y)
+            {
+                Player.Position.Y = groundRectangle.Y - PlayerDrawer.PlayerTexture.Height;
+                VerticalVelocity = 0f;
+            }
+            else
+            {
+                VerticalVelocity += Gravity;
+            }
+
+            Player.Position.Y = Math.Min(Player.Position.Y + VerticalVelocity, gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height);
+            VerticalVelocity = Math.Min(VerticalVelocity, MaxFallSpeed);
+        }
+
+        private void ResetPlayerIfDead(BasePlayer otherPlayer)
+        {
+            Player.HP = Math.Max(0, Player.HP);
+            if (Player.HP <= 0)
+            {
+                ResetPlayers(otherPlayer);
+            }
+        }
+
+        private void ResetPlayers(BasePlayer otherPlayer)
+        {
+            Player.HP = 100;
+            Player.IsDie = false;
+            otherPlayer.HP = 100;
+            Player.Position = Player.DefalutPosition;
+            otherPlayer.Position = otherPlayer.DefalutPosition;
+        }
+
+        private bool CanMove(Vector2 position, GraphicsDevice gd)
+        {
+            return position.X >= 0 && position.Y >= 0 &&
+                   position.X <= gd.Viewport.Width - PlayerDrawer.PlayerTexture.Width &&
+                   position.Y <= gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height;
+        }
     }
 }
