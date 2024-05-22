@@ -21,7 +21,7 @@ public class AnimationPictureController
             Animation.currentFrame++;
             if (Animation.currentFrame >= Animation.frames.Count)
             {
-                Animation.currentFrame = 0; // Loop the animation
+                Animation.currentFrame = 0;
             }
             Animation.timeCounter -= Animation.frameTime;
         }

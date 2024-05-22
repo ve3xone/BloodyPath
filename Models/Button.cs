@@ -1,12 +1,11 @@
 ﻿using BloodyPath.Controllers;
 using BloodyPath.Views;
 
-namespace BloodyPath.Models
+namespace BloodyPath.Models;
+
+public class Button
 {
-    public class Button
-    {
-        public ClickableText ClickableText;
-        public ClickableTextDrawer ClickableTextDrawer;
-        public ClickableTextController ClickableTextController;
-    }
+    public ClickableText ClickableText;
+    public ClickableTextDrawer ClickableTextDrawer;
+    public ClickableTextController ClickableTextController;
 }
