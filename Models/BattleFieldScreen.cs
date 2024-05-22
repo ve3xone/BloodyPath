@@ -72,7 +72,8 @@ public class BattleFieldScreen
             { "Up", Keys.Up },
             { "AttackHands", Keys.Enter },
             { "AttackFeet", Keys.RightShift },
-            { "Duck", Keys.Delete}
+            { "Duck", Keys.RightControl },
+            { "BotEnableAndDisable", Keys.Delete  }
         };
 
         Persona1.PlayerController = new(Persona1.Player, Persona1.PlayerDrawer, Persona1.PlayerKeyMappings);
