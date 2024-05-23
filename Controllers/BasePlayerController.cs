@@ -13,7 +13,7 @@ public class BasePlayerController
     private readonly BasePlayer Player;
     private readonly BasePlayerDrawer PlayerDrawer;
     private const float MaxFallSpeed = 10f;
-    private const float Gravity = 0.2f;
+    private const float Gravity = 0.07f;
     private float VerticalVelocity = 0f;
     public Dictionary<string, Keys> KeyMappings { private get; set; }
 
@@ -98,18 +98,25 @@ public class BasePlayerController
                                          !Player.IsLeftTexture && Player.Position.X > otherPlayer.Position.X;
             if (isPlayerOnCorrectSide)
             {
-                otherPlayer.HP -= Player.AttackDamage;
-                if (isFeetAttack)
+                if (isFeetAttack && 
+                    otherPlayer.Position.Y >= 280)
+                {
+                    otherPlayer.HP -= Player.AttackDamage;
                     Player.IsAttackingFeet = true;
-                else
+                }
+                else if (!isFeetAttack && 
+                         (!otherPlayer.IsDucked || otherPlayer.Position.Y <= 275))
+                {
+                    otherPlayer.HP -= Player.AttackDamage;
                     Player.IsAttackingHands = true;
+                }
             }
         }
     }
 
     private void HandleBotMovementAndAttack(float elapsedSeconds, BasePlayer otherPlayer)
     {
-        if (Vector2.Distance(Player.Position, otherPlayer.Position) > PlayerDrawer.PlayerTexture.Width - 60)
+        if (Math.Abs(Player.Position.X - otherPlayer.Position.X) > PlayerDrawer.PlayerTexture.Width - 60)
         {
             MoveTowardsOtherPlayer(otherPlayer);
         }
@@ -153,21 +160,36 @@ public class BasePlayerController
         {
             if (isPlayerOnCorrectSide)
             {
-                otherPlayer.HP -= Player.AttackDamage;
-                if (otherPlayer.IsDucked)
+                if (otherPlayer.Position.Y >= 280)
+                {
+                    otherPlayer.HP -= Player.AttackDamage;
                     Player.IsAttackingFeet = true;
-                else
+                }
+                else if (!otherPlayer.IsDucked)
+                {
+                    otherPlayer.HP -= Player.AttackDamage;
                     Player.IsAttackingHands = true;
+                }
             }
             // Даже если игрок находится на одной линии с ботом, и бот находится в пределах атаки,
             // бот может все равно атаковать, даже если игрок находится перед ним
             else
             {
-                otherPlayer.HP -= Player.AttackDamage;
-                if (otherPlayer.IsDucked)
+                //otherPlayer.HP -= Player.AttackDamage;
+                //if (otherPlayer.IsDucked)
+                //    Player.IsAttackingFeet = true;
+                //else
+                //    Player.IsAttackingHands = true;
+                if (otherPlayer.Position.Y >= 280)
+                {
+                    otherPlayer.HP -= Player.AttackDamage;
                     Player.IsAttackingFeet = true;
-                else
+                }
+                else if (!otherPlayer.IsDucked)
+                {
+                    otherPlayer.HP -= Player.AttackDamage;
                     Player.IsAttackingHands = true;
+                }
             }
         }
     }
@@ -192,9 +214,7 @@ public class BasePlayerController
     {
         Player.HP = Math.Max(0, Player.HP);
         if (Player.HP <= 0)
-        {
             ResetPlayers(otherPlayer);
-        }
     }
 
     private void ResetPlayers(BasePlayer otherPlayer)

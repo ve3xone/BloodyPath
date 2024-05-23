@@ -48,9 +48,9 @@ public class MainGame : Game
         MainMenu.ScreenController = new(MainMenu.Screen);
 
         BattleField.Screen = new (this, 
-                                 Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
-                                 BackgroundTexture,
-                                 VisibilityScreens);
+                                  Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
+                                  BackgroundTexture,
+                                  VisibilityScreens);
 
         BattleField.Screen.LoadContent();
 
