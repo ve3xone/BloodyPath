@@ -764,12 +764,26 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/FontBattleField.spritefont
 
-#begin Fonts/FontMainMenu.spritefont
+#begin Fonts/FontMainMenuButtons.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Fonts/FontMainMenu.spritefont
+/build:Fonts/FontMainMenuButtons.spritefont
+
+#begin Fonts/FontMainMenuCopyright.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/FontMainMenuCopyright.spritefont
+
+#begin Fonts/FontMainMenuNameGame.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/FontMainMenuNameGame.spritefont
 
 #begin HPRed.png
 /importer:TextureImporter
@@ -782,6 +796,24 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:HPRed.png
+
+#begin Music/ve3xone - Midnight Melodies.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/ve3xone - Midnight Melodies.mp3
+
+#begin Music/ve3xone - Neon Forest.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/ve3xone - Neon Forest.mp3
+
+#begin Music/ve3xone - Street Lights.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/ve3xone - Street Lights.mp3
 
 #begin Personas/Player1.png
 /importer:TextureImporter
