@@ -13,16 +13,19 @@ public class BattleFieldScreen
     public Rectangle GroundRectangle;
     public VisibilityScreens VisibilityScreens;
     public readonly Game Game;
+    public MusicManager MusicManager;
 
     public BattleFieldScreen(Game game,
                              SpriteFont battlefieldFont, 
                              Texture2D background,
-                             VisibilityScreens VisibilityScreens)
+                             VisibilityScreens VisibilityScreens,
+                             MusicManager musicManager)
     {
         this.Font = battlefieldFont;
         this.Game = game;
         this.Background = background;
         this.VisibilityScreens = VisibilityScreens;
+        this.MusicManager = musicManager;
     }
 
     public void LoadContent()

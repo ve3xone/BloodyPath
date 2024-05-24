@@ -11,18 +11,27 @@ public class MainMenuScreen
     public readonly Button ExitButton = new();
     public Rectangle Size;
     public Texture2D Texture;
-    public SpriteFont Font;
+    public readonly SpriteFont FontNameGame;
+    private readonly SpriteFont FontButton;
+    public readonly SpriteFont FontCopyright;
     public VisibilityScreens VisibilityScreens;
     public readonly Game Game;
     public Animation AnimationBackground = new();
+    private readonly MusicManager MusicManager;
 
     public MainMenuScreen(Game game,
-                          SpriteFont font,
-                          VisibilityScreens visibilityScreens)
+                          SpriteFont fontNameGame,
+                          SpriteFont fontButton,
+                          SpriteFont fontCopyright,
+                          VisibilityScreens visibilityScreens,
+                          MusicManager musicManager)
     {
         Game = game;
-        Font = font;
+        FontNameGame = fontNameGame;
+        FontButton = fontButton;
+        FontCopyright = fontCopyright;
         VisibilityScreens = visibilityScreens;
+        MusicManager = musicManager;
     }
 
     public void LoadContent()
@@ -51,22 +60,25 @@ public class MainMenuScreen
         AnimationBackground.AnimationPicture = new AnimationPicture(frames, 0.155);
         AnimationBackground.AnimationPictureDrawer = new(AnimationBackground.AnimationPicture);
         AnimationBackground.AnimationPictureController = new(AnimationBackground.AnimationPicture);
+
+        MusicManager.PlayMainMenuMusic();
     }
 
     private void LoadButtons() 
     {
-        PlayButton.ClickableText = new(Font,
+        PlayButton.ClickableText = new(FontButton,
                                 "Play",
                                 new Vector2(25, 300),
                                 Color.White, Color.Blue, delegate
         {
             VisibilityScreens.MainMenuIsVisible = false;
+            MusicManager.PlayBattlefieldMusic();
             VisibilityScreens.BattleFieldIsVisible = true;
         });
         PlayButton.ClickableTextDrawer = new(PlayButton.ClickableText);
         PlayButton.ClickableTextController = new(PlayButton.ClickableText);
 
-        SettingsButton.ClickableText = new(Font,
+        SettingsButton.ClickableText = new(FontButton,
                                            "Settings",
                                            new Vector2(25, 325),
                                            Color.White, Color.Blue, delegate
@@ -76,7 +88,7 @@ public class MainMenuScreen
         SettingsButton.ClickableTextDrawer = new(SettingsButton.ClickableText);
         SettingsButton.ClickableTextController = new(SettingsButton.ClickableText);
 
-        ExitButton.ClickableText = new(Font,
+        ExitButton.ClickableText = new(FontButton,
                                        "Exit",
                                        new Vector2(25, 350),
                                        Color.White, Color.Blue, delegate

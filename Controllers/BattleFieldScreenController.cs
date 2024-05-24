@@ -31,7 +31,7 @@ public class BattleFieldScreenController
             {
                 BattleFieldScreen.VisibilityScreens.MainMenuIsVisible = true;
                 BattleFieldScreen.ResetScreen();
-
+                BattleFieldScreen.MusicManager.PlayMainMenuMusic();
                 BattleFieldScreen.VisibilityScreens.BattleFieldIsVisible = false;
             }
         }

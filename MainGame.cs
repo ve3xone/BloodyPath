@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using BloodyPath.Models;
+using Microsoft.Xna.Framework.Media;
 
 namespace BloodyPath;
 
@@ -10,6 +11,7 @@ public class MainGame : Game
     private readonly MainMenu MainMenu = new();
     private readonly BattleField BattleField = new();
     private readonly VisibilityScreens VisibilityScreens = new();
+    private readonly MusicManager MusicManager = new();
 
     private readonly GraphicsDeviceManager Graphics;
     private SpriteBatch SpriteBatch;
@@ -38,9 +40,15 @@ public class MainGame : Game
 
         BackgroundTexture = Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600");
 
-        MainMenu.Screen = new (this, 
-                               Content.Load<SpriteFont>(@"Fonts\FontMainMenu"),
-                               VisibilityScreens);
+        MusicManager.LoadContent(Content.Load<Song>(@"Music\ve3xone - Midnight Melodies"),
+                                 Content.Load<Song>(@"Music\ve3xone - Neon Forest"));
+
+        MainMenu.Screen = new (this,
+                               Content.Load<SpriteFont>(@"Fonts\FontMainMenuNameGame"),
+                               Content.Load<SpriteFont>(@"Fonts\FontMainMenuButtons"),
+                               Content.Load<SpriteFont>(@"Fonts\FontMainMenuCopyright"),
+                               VisibilityScreens,
+                               MusicManager);
 
         MainMenu.Screen.LoadContent();
 
@@ -50,7 +58,8 @@ public class MainGame : Game
         BattleField.Screen = new (this, 
                                   Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
                                   BackgroundTexture,
-                                  VisibilityScreens);
+                                  VisibilityScreens,
+                                  MusicManager);
 
         BattleField.Screen.LoadContent();
 
