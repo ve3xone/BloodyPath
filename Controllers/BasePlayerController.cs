@@ -152,44 +152,19 @@ public class BasePlayerController
     private void PerformBotAttack(BasePlayer otherPlayer)
     {
         bool isWithinReach = Vector2.Distance(Player.Position, otherPlayer.Position) < PlayerDrawer.PlayerTexture.Width;
-        bool isPlayerOnCorrectSide = Player.IsLeftTexture && Player.Position.X < otherPlayer.Position.X ||
-                                     !Player.IsLeftTexture && Player.Position.X > otherPlayer.Position.X;
 
-        // Проверка на то, что бот находится в пределах атаки и игрок не заблокировал атаку
+        // Проверка на то, что бот находится в пределах атаки
         if (isWithinReach)
         {
-            if (isPlayerOnCorrectSide)
+            if (otherPlayer.Position.Y >= 280)
             {
-                if (otherPlayer.Position.Y >= 280)
-                {
-                    otherPlayer.HP -= Player.AttackDamage;
-                    Player.IsAttackingFeet = true;
-                }
-                else if (!otherPlayer.IsDucked)
-                {
-                    otherPlayer.HP -= Player.AttackDamage;
-                    Player.IsAttackingHands = true;
-                }
+                otherPlayer.HP -= Player.AttackDamage;
+                Player.IsAttackingFeet = true;
             }
-            // Даже если игрок находится на одной линии с ботом, и бот находится в пределах атаки,
-            // бот может все равно атаковать, даже если игрок находится перед ним
-            else
+            else if (!otherPlayer.IsDucked)
             {
-                //otherPlayer.HP -= Player.AttackDamage;
-                //if (otherPlayer.IsDucked)
-                //    Player.IsAttackingFeet = true;
-                //else
-                //    Player.IsAttackingHands = true;
-                if (otherPlayer.Position.Y >= 280)
-                {
-                    otherPlayer.HP -= Player.AttackDamage;
-                    Player.IsAttackingFeet = true;
-                }
-                else if (!otherPlayer.IsDucked)
-                {
-                    otherPlayer.HP -= Player.AttackDamage;
-                    Player.IsAttackingHands = true;
-                }
+                otherPlayer.HP -= Player.AttackDamage;
+                Player.IsAttackingHands = true;
             }
         }
     }
