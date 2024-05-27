@@ -7,7 +7,6 @@ namespace BloodyPath.Models;
 public class MainMenuScreen
 {
     public readonly Button PlayButton = new();
-    public readonly Button SettingsButton = new();
     public readonly Button ExitButton = new();
     public Rectangle Size;
     public Texture2D Texture;
@@ -78,19 +77,9 @@ public class MainMenuScreen
         PlayButton.ClickableTextDrawer = new(PlayButton.ClickableText);
         PlayButton.ClickableTextController = new(PlayButton.ClickableText);
 
-        SettingsButton.ClickableText = new(FontButton,
-                                           "Settings",
-                                           new Vector2(25, 325),
-                                           Color.White, Color.Blue, delegate
-        {
-            Game.Exit(); //Заглушка либо уберу
-        });
-        SettingsButton.ClickableTextDrawer = new(SettingsButton.ClickableText);
-        SettingsButton.ClickableTextController = new(SettingsButton.ClickableText);
-
         ExitButton.ClickableText = new(FontButton,
                                        "Exit",
-                                       new Vector2(25, 350),
+                                       new Vector2(25, 325),
                                        Color.White, Color.Blue, delegate
         {
             Game.Exit();

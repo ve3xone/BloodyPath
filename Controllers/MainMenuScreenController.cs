@@ -15,7 +15,6 @@ public class MainMenuScreenController
     public void Update(GameTime gameTime)
     {
         MainMenuScreen.PlayButton.ClickableTextController.Update();
-        MainMenuScreen.SettingsButton.ClickableTextController.Update();
         MainMenuScreen.ExitButton.ClickableTextController.Update();
         MainMenuScreen.AnimationBackground.AnimationPictureController.Update(gameTime);
     }

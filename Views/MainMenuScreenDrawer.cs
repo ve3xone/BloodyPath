@@ -28,7 +28,6 @@ public class MainMenuScreenDrawer
             spriteBatch.DrawString(MainMenuScreen.FontCopyright, "by ve3xone 2024", new Vector2(25, 550), Color.White);
 
             MainMenuScreen.PlayButton.ClickableTextDrawer.Draw(spriteBatch);
-            MainMenuScreen.SettingsButton.ClickableTextDrawer.Draw(spriteBatch);
             MainMenuScreen.ExitButton.ClickableTextDrawer.Draw(spriteBatch);
 
             spriteBatch.End();
