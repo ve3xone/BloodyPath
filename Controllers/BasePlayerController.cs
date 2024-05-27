@@ -194,6 +194,7 @@ public class BasePlayerController
 
     private void ResetPlayers(BasePlayer otherPlayer)
     {
+        otherPlayer.Victories++;
         Player.HP = 100;
         otherPlayer.HP = 100;
         Player.Position = Player.DefalutPosition;
