@@ -98,14 +98,13 @@ public class BasePlayerController
                                          !Player.IsLeftTexture && Player.Position.X > otherPlayer.Position.X;
             if (isPlayerOnCorrectSide)
             {
-                if (isFeetAttack && 
-                    otherPlayer.Position.Y >= 280)
+                if (isFeetAttack)
                 {
                     otherPlayer.HP -= Player.AttackDamage;
                     Player.IsAttackingFeet = true;
                 }
                 else if (!isFeetAttack && 
-                         (!otherPlayer.IsDucked || otherPlayer.Position.Y <= 275))
+                         (!otherPlayer.IsDucked))
                 {
                     otherPlayer.HP -= Player.AttackDamage;
                     Player.IsAttackingHands = true;
