@@ -116,7 +116,7 @@ public class BasePlayerController
 
     private void HandleBotMovementAndAttack(float elapsedSeconds, BasePlayer otherPlayer)
     {
-        if (Math.Abs(Player.Position.X - otherPlayer.Position.X) > PlayerDrawer.PlayerTexture.Width - 60)
+        if (Math.Abs(Player.Position.X - otherPlayer.Position.X) > PlayerDrawer.PlayerTexture.Width - 20)
         {
             MoveTowardsOtherPlayer(otherPlayer);
         }
@@ -131,7 +131,7 @@ public class BasePlayerController
         Player.IsAttackingFeet = false;
         Player.IsAttackingHands = false;
         Player.IsLeftTexture = otherPlayer.Position.X > Player.Position.X;
-        Player.Position += new Vector2(Player.IsLeftTexture ? 1 : -1, 0);
+        Player.Position += new Vector2(Player.IsLeftTexture ? Player.PlayerSpeed : -Player.PlayerSpeed, 0);
     }
 
     private void HandleBotAttack(float elapsedSeconds, BasePlayer otherPlayer)
@@ -156,7 +156,7 @@ public class BasePlayerController
         // Проверка на то, что бот находится в пределах атаки
         if (isWithinReach)
         {
-            if (otherPlayer.Position.Y >= 280)
+            if (otherPlayer.Position.Y >= 443)
             {
                 otherPlayer.HP -= Player.AttackDamage;
                 Player.IsAttackingFeet = true;
