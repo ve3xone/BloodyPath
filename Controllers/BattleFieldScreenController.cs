@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
-using BloodyPath.Models;
+﻿using BloodyPath.Models;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace BloodyPath.Controllers;
 

@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BloodyPath.Models;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BloodyPath.Models;
 
 namespace BloodyPath.View;
 
@@ -39,31 +39,26 @@ public class BasePlayerDrawer
 
     public void Draw(SpriteBatch spriteBatch)
     {
+        Texture2D textureToDraw;
+
         if (Player.IsAttackingHands)
         {
-            if (Player.IsLeftTexture)
-                spriteBatch.Draw(PlayerDamageHandsTexture, Player.Position, Color.White);
-            else
-                spriteBatch.Draw(PlayerDamageHandsTextureReversed, Player.Position, Color.White);
+            textureToDraw = Player.IsLeftTexture ? PlayerDamageHandsTexture : PlayerDamageHandsTextureReversed;
         }
         else if (Player.IsAttackingFeet)
         {
-            if (Player.IsLeftTexture)
-                spriteBatch.Draw(PlayerDamageFeetTexture, Player.Position, Color.White);
-            else
-                spriteBatch.Draw(PlayerDamageFeetTextureReversed, Player.Position, Color.White);
+            textureToDraw = Player.IsLeftTexture ? PlayerDamageFeetTexture : PlayerDamageFeetTextureReversed;
         }
         else if (Player.IsDucked)
         {
-            spriteBatch.Draw(PlayerTextureDucked, Player.Position, Color.White);
+            textureToDraw = PlayerTextureDucked;
         }
         else
         {
-            if (Player.IsLeftTexture)
-                spriteBatch.Draw(PlayerTexture, Player.Position, Color.White);
-            else
-                spriteBatch.Draw(PlayerTextureReversed, Player.Position, Color.White);
+            textureToDraw = Player.IsLeftTexture ? PlayerTexture : PlayerTextureReversed;
         }
+
+        spriteBatch.Draw(textureToDraw, Player.Position, Color.White);
     }
 
     public void DrawHpPlayerBar(SpriteBatch spriteBatch, SpriteFont font, Vector2 Pos, bool Reverse)

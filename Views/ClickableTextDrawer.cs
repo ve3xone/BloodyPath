@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using BloodyPath.Models;
+﻿using BloodyPath.Models;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BloodyPath.Views;
 
@@ -16,7 +16,6 @@ public class ClickableTextDrawer
         spriteBatch.DrawString(ClickableText.Font,
                                ClickableText.Text,
                                ClickableText.Position,
-                               ClickableText.IsHovering ?
-                               ClickableText.HoverColor : ClickableText.DefaultColor);
+                               ClickableText.IsHovering ? ClickableText.HoverColor : ClickableText.DefaultColor);
     }
 }

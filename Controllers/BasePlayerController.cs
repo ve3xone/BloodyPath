@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BloodyPath.Models;
+using BloodyPath.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using BloodyPath.Models;
-using BloodyPath.View;
+using System;
+using System.Collections.Generic;
 
 namespace BloodyPath.Controller;
 
@@ -22,14 +22,20 @@ public class BasePlayerController
     private const float attackAnimationDuration = 0.25f;
     private bool previousKeyState = false;
 
-    public BasePlayerController(BasePlayer player, BasePlayerDrawer playerDrawer, Dictionary<string, Keys> keyMappings)
+    public BasePlayerController(BasePlayer player, 
+                                BasePlayerDrawer playerDrawer, 
+                                Dictionary<string, Keys> keyMappings)
     {
         Player = player;
         PlayerDrawer = playerDrawer;
         KeyMappings = keyMappings;
     }
 
-    public void Update(GameTime gameTime, KeyboardState keyboardState, BasePlayer otherPlayer, Rectangle groundRectangle, GraphicsDevice gd)
+    public void Update(GameTime gameTime, 
+                       KeyboardState keyboardState, 
+                       BasePlayer otherPlayer, 
+                       Rectangle groundRectangle, 
+                       GraphicsDevice gd)
     {
         float elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
