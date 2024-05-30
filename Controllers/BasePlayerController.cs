@@ -1,5 +1,4 @@
 ﻿using BloodyPath.Models;
-using BloodyPath.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,7 +10,6 @@ namespace BloodyPath.Controller;
 public class BasePlayerController
 {
     private readonly BasePlayer Player;
-    private readonly BasePlayerDrawer PlayerDrawer;
     private const float MaxFallSpeed = 10f;
     private const float Gravity = 0.07f;
     private float VerticalVelocity = 0f;
@@ -23,11 +21,9 @@ public class BasePlayerController
     private bool previousKeyState = false;
 
     public BasePlayerController(BasePlayer player, 
-                                BasePlayerDrawer playerDrawer, 
                                 Dictionary<string, Keys> keyMappings)
     {
         Player = player;
-        PlayerDrawer = playerDrawer;
         KeyMappings = keyMappings;
     }
 
@@ -98,7 +94,7 @@ public class BasePlayerController
 
     private void PerformAttack(BasePlayer otherPlayer, bool isFeetAttack)
     {
-        if (Vector2.Distance(Player.Position, otherPlayer.Position) < PlayerDrawer.PlayerTexture.Width)
+        if (Vector2.Distance(Player.Position, otherPlayer.Position) < Player.PlayerTexture.Width)
         {
             bool isPlayerOnCorrectSide = Player.IsLeftTexture && Player.Position.X < otherPlayer.Position.X ||
                                          !Player.IsLeftTexture && Player.Position.X > otherPlayer.Position.X;
@@ -121,7 +117,7 @@ public class BasePlayerController
 
     private void HandleBotMovementAndAttack(float elapsedSeconds, BasePlayer otherPlayer)
     {
-        if (Math.Abs(Player.Position.X - otherPlayer.Position.X) > PlayerDrawer.PlayerTexture.Width - 20)
+        if (Math.Abs(Player.Position.X - otherPlayer.Position.X) > Player.PlayerTexture.Width - 20)
         {
             MoveTowardsOtherPlayer(otherPlayer);
         }
@@ -156,7 +152,7 @@ public class BasePlayerController
 
     private void PerformBotAttack(BasePlayer otherPlayer)
     {
-        bool isWithinReach = Vector2.Distance(Player.Position, otherPlayer.Position) < PlayerDrawer.PlayerTexture.Width;
+        bool isWithinReach = Vector2.Distance(Player.Position, otherPlayer.Position) < Player.PlayerTexture.Width;
 
         // Проверка на то, что бот находится в пределах атаки
         if (isWithinReach)
@@ -176,9 +172,9 @@ public class BasePlayerController
 
     private void ApplyGravityAndCheckGroundCollision(Rectangle groundRectangle, GraphicsDevice gd)
     {
-        if (Player.Position.Y + PlayerDrawer.PlayerTexture.Height >= groundRectangle.Y)
+        if (Player.Position.Y + Player.PlayerTexture.Height >= groundRectangle.Y)
         {
-            Player.Position.Y = groundRectangle.Y - PlayerDrawer.PlayerTexture.Height;
+            Player.Position.Y = groundRectangle.Y - Player.PlayerTexture.Height;
             VerticalVelocity = 0f;
         }
         else
@@ -186,7 +182,7 @@ public class BasePlayerController
             VerticalVelocity += Gravity;
         }
 
-        Player.Position.Y = Math.Min(Player.Position.Y + VerticalVelocity, gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height);
+        Player.Position.Y = Math.Min(Player.Position.Y + VerticalVelocity, gd.Viewport.Height - Player.PlayerTexture.Height);
         VerticalVelocity = Math.Min(VerticalVelocity, MaxFallSpeed);
     }
 
@@ -209,7 +205,7 @@ public class BasePlayerController
     private bool CanMove(Vector2 position, GraphicsDevice gd)
     {
         return position.X >= 0 && position.Y >= 0 &&
-               position.X <= gd.Viewport.Width - PlayerDrawer.PlayerTexture.Width &&
-               position.Y <= gd.Viewport.Height - PlayerDrawer.PlayerTexture.Height;
+               position.X <= gd.Viewport.Width - Player.PlayerTexture.Width &&
+               position.Y <= gd.Viewport.Height - Player.PlayerTexture.Height;
     }
 }
