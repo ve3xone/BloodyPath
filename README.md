@@ -12,12 +12,13 @@
 
 ## Геймплей 
 
-Перемещение, атака, дизайн (если конечно это считается)
+Перемещение, атака, защита
 
 Главное меню:
 ![General_Menu.gif](https://github.com/ve3xone/BloodyPath/blob/master/.github/General_Menu.gif?raw=true)
 
-Тут будет гифка геймплея игры
+Самая игра:
+![General_Menu.gif](https://github.com/ve3xone/BloodyPath/blob/master/.github/Gameplay.gif?raw=true)
 
 ## Графика
 
@@ -32,7 +33,8 @@
 Фон из поля битвы:
 ![Landscape_800_600.png](https://github.com/ve3xone/BloodyPath/blob/master/Content/Backgrounds/Landscape_800_600.png?raw=true)
 
-Здесь скорее всего будут персонажи
+Персонажи:
+![Characters.png](https://github.com/ve3xone/BloodyPath/blob/master/.github/Characters.png?raw=true)
 
 ## Надежда
 
@@ -72,6 +74,7 @@
         - [x] ClickableText (Button)
         - [x] AnimationPicture (Animation)
     - [x] BattleFieldScreen (BattleField)
+    - Мне стало тут лень отмечать но я попытался все привести к MVC
     - Мной было принятно если добавлять новый функционнал сразу делать его по MVC а не по отдености
         - Так что скорее всего я не успею реализовать его весь, но я думаю что сейчас есть этого может быть достаточно для хорошего кол-во баллов
 - [x] Базовый функционал.
@@ -79,12 +82,12 @@
     - [x] Атака у обоих игроках
     - [x] Гравитация
     - [x] Экран главное меню
-        - [ ] Окно настроек (может не будет, долго делать)
+        - [x] Регулятор громкости
         - [x] Название игры сделать сверху посередине
     - [x] Экран поля битвы
         - [x] Hp bar плееров
             - [x] Названия Player 1 и Player 2
-            - [ ] Отображение побед у Player's
+            - [x] Отображение побед у Player's
                 - Кто из игроков достигнет 3 раундов тот и выйграл
                   - [ ] Показать что игра окончена и показать кто победил.
         - [x] Сделать нормальные хитбоксы (ну это когда текстуры полностью доделаю)
