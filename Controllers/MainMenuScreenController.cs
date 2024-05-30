@@ -16,6 +16,7 @@ public class MainMenuScreenController
     {
         MainMenuScreen.PlayButton.ClickableTextController.Update();
         MainMenuScreen.ExitButton.ClickableTextController.Update();
+        MainMenuScreen.VolumeManager.SliderVolumeController.Update();
         MainMenuScreen.AnimationBackground.AnimationPictureController.Update(gameTime);
     }
 }

@@ -30,6 +30,8 @@ public class MainMenuScreenDrawer
             MainMenuScreen.PlayButton.ClickableTextDrawer.Draw(spriteBatch);
             MainMenuScreen.ExitButton.ClickableTextDrawer.Draw(spriteBatch);
 
+            MainMenuScreen.VolumeManager.SliderVolumeDrawer.Draw(spriteBatch);
+
             spriteBatch.End();
         }
     }

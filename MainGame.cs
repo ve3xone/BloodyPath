@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BloodyPath.Models;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using BloodyPath.Models;
 using Microsoft.Xna.Framework.Media;
 
 namespace BloodyPath;
@@ -29,10 +29,13 @@ public class MainGame : Game
         Graphics.PreferredBackBufferWidth = 800;
         Graphics.PreferredBackBufferHeight = 600;
         Graphics.ApplyChanges();
+        MediaPlayer.Volume = 0.5f;
         IsMouseVisible = true;
     }
 
     protected override void Initialize() => base.Initialize();
+
+
 
     protected override void LoadContent()
     {
@@ -51,7 +54,6 @@ public class MainGame : Game
                                MusicManager);
 
         MainMenu.Screen.LoadContent();
-
         MainMenu.ScreenDrawer = new(MainMenu.Screen);
         MainMenu.ScreenController = new(MainMenu.Screen);
 

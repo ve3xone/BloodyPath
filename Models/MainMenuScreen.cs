@@ -11,12 +11,13 @@ public class MainMenuScreen
     public Rectangle Size;
     public Texture2D Texture;
     public readonly SpriteFont FontNameGame;
-    private readonly SpriteFont FontButton;
+    public readonly SpriteFont FontButton;
     public readonly SpriteFont FontCopyright;
     public VisibilityScreens VisibilityScreens;
     public readonly Game Game;
     public Animation AnimationBackground = new();
-    private readonly MusicManager MusicManager;
+    public readonly MusicManager MusicManager;
+    public VolumeManager VolumeManager = new();
 
     public MainMenuScreen(Game game,
                           SpriteFont fontNameGame,
@@ -35,11 +36,12 @@ public class MainMenuScreen
 
     public void LoadContent()
     {
-        Size = new(0, 0, (int)(Game.GraphicsDevice.Viewport.Width / 2.5), 
-                               Game.GraphicsDevice.Viewport.Height);
+        Size = new(0, 0,
+                   (int)(Game.GraphicsDevice.Viewport.Width / 2.5),
+                   Game.GraphicsDevice.Viewport.Height);
 
-        Texture = new(Game.GraphicsDevice, 
-                      Game.GraphicsDevice.Viewport.Width, 
+        Texture = new(Game.GraphicsDevice,
+                      Game.GraphicsDevice.Viewport.Width,
                       Game.GraphicsDevice.Viewport.Height);
 
         // Прозрачнность
@@ -60,20 +62,29 @@ public class MainMenuScreen
         AnimationBackground.AnimationPictureDrawer = new(AnimationBackground.AnimationPicture);
         AnimationBackground.AnimationPictureController = new(AnimationBackground.AnimationPicture);
 
+        VolumeManager.SliderVolume = new(0.5f,
+                                         Game.Content.Load<Texture2D>(@"VolumeManager\SliderBar"),
+                                         Game.Content.Load<Texture2D>(@"VolumeManager\SliderButton"),
+                                         Game.Content.Load<Texture2D>(@"VolumeManager\MutedButton"),
+                                         Game.Content.Load<Texture2D>(@"VolumeManager\UnmutedButton"));
+        VolumeManager.SliderVolume.LoadContent();
+        VolumeManager.SliderVolumeDrawer = new(VolumeManager.SliderVolume);
+        VolumeManager.SliderVolumeController = new(VolumeManager.SliderVolume);
+
         MusicManager.PlayMainMenuMusic();
     }
 
-    private void LoadButtons() 
+    private void LoadButtons()
     {
         PlayButton.ClickableText = new(FontButton,
-                                "Play",
-                                new Vector2(25, 300),
-                                Color.White, Color.Blue, delegate
-        {
-            VisibilityScreens.MainMenuIsVisible = false;
-            MusicManager.PlayBattlefieldMusic();
-            VisibilityScreens.BattleFieldIsVisible = true;
-        });
+                                       "Play",
+                                       new Vector2(25, 300),
+                                       Color.White, Color.Blue, delegate
+                                       {
+                                           VisibilityScreens.MainMenuIsVisible = false;
+                                           MusicManager.PlayBattlefieldMusic();
+                                           VisibilityScreens.BattleFieldIsVisible = true;
+                                       });
         PlayButton.ClickableTextDrawer = new(PlayButton.ClickableText);
         PlayButton.ClickableTextController = new(PlayButton.ClickableText);
 
@@ -81,9 +92,9 @@ public class MainMenuScreen
                                        "Exit",
                                        new Vector2(25, 325),
                                        Color.White, Color.Blue, delegate
-        {
-            Game.Exit();
-        });
+                                       {
+                                           Game.Exit();
+                                       });
         ExitButton.ClickableTextDrawer = new(ExitButton.ClickableText);
         ExitButton.ClickableTextController = new(ExitButton.ClickableText);
     }

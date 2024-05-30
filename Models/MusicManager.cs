@@ -17,7 +17,6 @@ public class MusicManager
     public void PlayMainMenuMusic()
     {
         MediaPlayer.Stop();
-        MediaPlayer.Volume = 0.05f;
         MediaPlayer.Play(MainMenuMusic);
         MediaPlayer.IsRepeating = true;
     }
@@ -25,7 +24,6 @@ public class MusicManager
     public void PlayBattlefieldMusic()
     {
         MediaPlayer.Stop();
-        MediaPlayer.Volume = 0.05f;
         MediaPlayer.Play(GameMusic);
         MediaPlayer.IsRepeating = true;
     }
