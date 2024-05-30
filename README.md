@@ -25,9 +25,12 @@
     - Считаю за Stable Diffusion можно было бы накинуть баллов так как с ним нужно ещё уметь работать и да он у меня локально поднят на моем пк (rtx 3080 позволяет)
 Точно могу с увереностью сказать рисовал сам персонажей и это было очень мутарно.
 
-Здесь будет гифка обои с главного меню
+Фон из главного меню:
 
-Здесь будет обои с поля битвы
+![Background_from_main_menu.gif](https://github.com/ve3xone/BloodyPath/blob/master/.github/Background_from_main_menu.gif?raw=true)
+
+Фон из поля битвы:
+![Landscape_800_600.png](https://github.com/ve3xone/BloodyPath/blob/master/Content/Backgrounds/Landscape_800_600.png?raw=true)
 
 Здесь скорее всего будут персонажи
 
