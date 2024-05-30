@@ -33,8 +33,8 @@ public class BattleFieldScreen
         GroundRectangle = new Rectangle(0, Game.GraphicsDevice.Viewport.Height - 50,
                                         Game.GraphicsDevice.Viewport.Width, 50);
 
-        Persona1.Player = new(new Vector2(100, 400), true, 0);
-        Persona2.Player = new(new Vector2(600, 400), false, 1);
+        Persona1.Player = new(new Vector2(100, 444), true, 0);
+        Persona2.Player = new(new Vector2(600, 444), false, 1);
 
         Persona1.PlayerDrawer = new(Persona1.Player,
                                     Game.Content.Load<Texture2D>(@"Personas\Player1"),
