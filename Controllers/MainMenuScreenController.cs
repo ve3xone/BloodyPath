@@ -10,6 +10,17 @@ public class MainMenuScreenController
     public MainMenuScreenController(MainMenuScreen mainMenuScreen) 
     { 
         this.MainMenuScreen = mainMenuScreen;
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        MainMenuScreen.PlayButton.ClickableTextController = new(MainMenuScreen.PlayButton.ClickableText);
+        MainMenuScreen.ExitButton.ClickableTextController = new(MainMenuScreen.ExitButton.ClickableText);
+        MainMenuScreen.AnimationBackground.AnimationPictureController = 
+            new AnimationPictureController(MainMenuScreen.AnimationBackground.AnimationPicture);
+        MainMenuScreen.VolumeManager.SliderVolumeController = 
+            new SliderVolumeController(MainMenuScreen.VolumeManager.SliderVolume);
     }
 
     public void Update(GameTime gameTime)
