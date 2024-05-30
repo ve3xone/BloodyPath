@@ -15,9 +15,11 @@
 Перемещение, атака, защита
 
 Главное меню:
+
 ![General_Menu.gif](https://github.com/ve3xone/BloodyPath/blob/master/.github/General_Menu.gif?raw=true)
 
 Самая игра:
+
 ![General_Menu.gif](https://github.com/ve3xone/BloodyPath/blob/master/.github/Gameplay.gif?raw=true)
 
 ## Графика
@@ -27,7 +29,6 @@
 Точно могу с увереностью сказать рисовал сам персонажей и это было очень мутарно.
 
 Фон из главного меню:
-
 ![Background_from_main_menu.gif](https://github.com/ve3xone/BloodyPath/blob/master/.github/Background_from_main_menu.gif?raw=true)
 
 Фон из поля битвы:
