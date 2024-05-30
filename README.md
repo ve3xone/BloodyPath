@@ -29,12 +29,15 @@
 Точно могу с увереностью сказать рисовал сам персонажей и это было очень мутарно.
 
 Фон из главного меню:
+
 ![Background_from_main_menu.gif](https://github.com/ve3xone/BloodyPath/blob/master/.github/Background_from_main_menu.gif?raw=true)
 
 Фон из поля битвы:
+
 ![Landscape_800_600.png](https://github.com/ve3xone/BloodyPath/blob/master/Content/Backgrounds/Landscape_800_600.png?raw=true)
 
 Персонажи:
+
 ![Characters.png](https://github.com/ve3xone/BloodyPath/blob/master/.github/Characters.png?raw=true)
 
 ## Надежда
@@ -44,6 +47,7 @@
 ## Управление в игре
 
 ![Control.png](https://github.com/ve3xone/BloodyPath/blob/master/.github/Control.png?raw=true)
+
 - Управление игроком 1
     - A, D - Движение влево, вправо
     - W - Прыжок
