@@ -6,16 +6,20 @@ namespace BloodyPath.Views;
 public class ClickableTextDrawer
 {
     private ClickableText ClickableText { get; set; }
-    public ClickableTextDrawer(ClickableText clickableText)
+    private readonly SpriteFont Font;
+    public ClickableTextDrawer(ClickableText clickableText, SpriteFont font)
     {
         ClickableText = clickableText;
+        Font = font;
+        ClickableText.textSize = Font.MeasureString(ClickableText.Text);
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.DrawString(ClickableText.Font,
+        spriteBatch.DrawString(Font,
                                ClickableText.Text,
                                ClickableText.Position,
-                               ClickableText.IsHovering ? ClickableText.HoverColor : ClickableText.DefaultColor);
+                               ClickableText.IsHovering ? 
+                               ClickableText.HoverColor : ClickableText.DefaultColor);
     }
 }

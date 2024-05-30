@@ -76,8 +76,7 @@ public class MainMenuScreen
 
     private void LoadButtons()
     {
-        PlayButton.ClickableText = new(FontButton,
-                                       "Play",
+        PlayButton.ClickableText = new("Play",
                                        new Vector2(25, 300),
                                        Color.White, Color.Blue, delegate
                                        {
@@ -85,17 +84,16 @@ public class MainMenuScreen
                                            MusicManager.PlayBattlefieldMusic();
                                            VisibilityScreens.BattleFieldIsVisible = true;
                                        });
-        PlayButton.ClickableTextDrawer = new(PlayButton.ClickableText);
+        PlayButton.ClickableTextDrawer = new(PlayButton.ClickableText, FontButton);
         PlayButton.ClickableTextController = new(PlayButton.ClickableText);
 
-        ExitButton.ClickableText = new(FontButton,
-                                       "Exit",
+        ExitButton.ClickableText = new("Exit",
                                        new Vector2(25, 325),
                                        Color.White, Color.Blue, delegate
                                        {
                                            Game.Exit();
                                        });
-        ExitButton.ClickableTextDrawer = new(ExitButton.ClickableText);
+        ExitButton.ClickableTextDrawer = new(ExitButton.ClickableText, FontButton);
         ExitButton.ClickableTextController = new(ExitButton.ClickableText);
     }
 }

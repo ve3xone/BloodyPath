@@ -7,9 +7,15 @@ namespace BloodyPath.Controllers;
 public class ClickableTextController
 {
     private ClickableText ClickableText { get; set; }
+    public Rectangle BoundingBox;
+
     public ClickableTextController(ClickableText clickableText)
     {
         this.ClickableText = clickableText;
+        BoundingBox = new Rectangle((int)ClickableText.Position.X,
+                                    (int)ClickableText.Position.Y,
+                                    (int)ClickableText.textSize.X,
+                                    (int)ClickableText.textSize.Y);
     }
 
     public void Update()
@@ -17,7 +23,7 @@ public class ClickableTextController
         MouseState mouseState = Mouse.GetState();
         Point mousePosition = new(mouseState.X, mouseState.Y);
 
-        ClickableText.IsHovering = ClickableText.BoundingBox.Contains(mousePosition);
+        ClickableText.IsHovering = BoundingBox.Contains(mousePosition);
 
         if (ClickableText.IsHovering &&
             mouseState.LeftButton == ButtonState.Pressed &&
