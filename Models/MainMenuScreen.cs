@@ -19,6 +19,7 @@ public class MainMenuScreen
         VisibilityScreens = visibilityScreens;
         MusicManager = musicManager;
         AnimationBackground.AnimationPicture = new AnimationPicture(0.155);
+        VolumeManager.SliderVolume = new(0.5f);
         Size = new Rectangle(0, 0, 
                              (int)(Game.GraphicsDevice.Viewport.Width / 2.5), 
                              Game.GraphicsDevice.Viewport.Height);
