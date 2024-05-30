@@ -14,16 +14,16 @@ public class AnimationPictureController
 
     public void Update(GameTime gameTime)
     {
-        Animation.timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
+        Animation.TimeCounter += gameTime.ElapsedGameTime.TotalSeconds;
 
-        if (Animation.timeCounter >= Animation.frameTime)
+        if (Animation.TimeCounter >= Animation.FrameTime)
         {
-            Animation.currentFrame++;
-            if (Animation.currentFrame >= Animation.frames.Count)
+            Animation.CurrentFrame++;
+            if (Animation.CurrentFrame >= Animation.FrameCount)
             {
-                Animation.currentFrame = 0;
+                Animation.CurrentFrame = 0;
             }
-            Animation.timeCounter -= Animation.frameTime;
+            Animation.TimeCounter -= Animation.FrameTime;
         }
     }
 }

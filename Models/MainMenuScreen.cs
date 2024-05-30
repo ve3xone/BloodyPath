@@ -58,8 +58,8 @@ public class MainMenuScreen
         for (int i = 0; i <= 55; i++)
             frames.Add(Game.Content.Load<Texture2D>(@$"Backgrounds\Animated_Back_800_600\{i}"));
 
-        AnimationBackground.AnimationPicture = new AnimationPicture(frames, 0.155);
-        AnimationBackground.AnimationPictureDrawer = new(AnimationBackground.AnimationPicture);
+        AnimationBackground.AnimationPicture = new AnimationPicture(0.155);
+        AnimationBackground.AnimationPictureDrawer = new(AnimationBackground.AnimationPicture, frames);
         AnimationBackground.AnimationPictureController = new(AnimationBackground.AnimationPicture);
 
         VolumeManager.SliderVolume = new(0.5f,
