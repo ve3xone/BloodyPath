@@ -1,6 +1,6 @@
 # BloodyPath
 
-![Readme_graphic.png](https://github.com/ve3xone/BloodyPath/.github/Readme_graphic.png)
+![Readme_graphic.png](https://github.com/ve3xone/BloodyPath/blob/master/.github/Readme_graphic.png?raw=true)
 
 - Это многопользовательская игра в жанре экшн, сочетающая в себе драки. Создавая абсурдный хаос, как в боевиках.
 
@@ -15,7 +15,7 @@
 Перемещение, атака, дизайн (если конечно это считается)
 
 Главное меню:
-![General_Menu.gif](https://github.com/ve3xone/BloodyPath/.github/General_Menu.gif)
+![General_Menu.gif](https://github.com/ve3xone/BloodyPath/blob/master/.github/General_Menu.gif?raw=true)
 
 Тут будет гифка геймплея игры
 
@@ -37,7 +37,7 @@
 
 ## Управление в игре
 
-![Control.png](https://github.com/ve3xone/BloodyPath/.github/Control.png)
+![Control.png](https://github.com/ve3xone/BloodyPath/blob/master/.github/Control.png?raw=true)
 - Управление игроком 1
     - A, D - Движение влево, вправо
     - W - Прыжок
