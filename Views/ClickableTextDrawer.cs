@@ -7,6 +7,7 @@ public class ClickableTextDrawer
 {
     private ClickableText ClickableText { get; set; }
     private readonly SpriteFont Font;
+
     public ClickableTextDrawer(ClickableText clickableText, SpriteFont font)
     {
         ClickableText = clickableText;

@@ -7,7 +7,8 @@ namespace BloodyPath.Controllers;
 public class ClickableTextController
 {
     private ClickableText ClickableText { get; set; }
-    public Rectangle BoundingBox;
+    private Rectangle BoundingBox;
+    private MouseState PreviousMouseState;
 
     public ClickableTextController(ClickableText clickableText)
     {
@@ -27,11 +28,11 @@ public class ClickableTextController
 
         if (ClickableText.IsHovering &&
             mouseState.LeftButton == ButtonState.Pressed &&
-            ClickableText.PreviousMouseState.LeftButton == ButtonState.Released)
+            PreviousMouseState.LeftButton == ButtonState.Released)
         {
             ClickableText.OnClickAction?.Invoke();
         }
 
-        ClickableText.PreviousMouseState = mouseState;
+        PreviousMouseState = mouseState;
     }
 }

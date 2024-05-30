@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace BloodyPath.Models;
@@ -12,7 +11,6 @@ public class ClickableText
     public Color DefaultColor;
     public Color HoverColor;
     public bool IsHovering;
-    public MouseState PreviousMouseState;
     public readonly Action OnClickAction;
 
     public ClickableText(string text, 
