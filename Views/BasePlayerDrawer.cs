@@ -1,6 +1,7 @@
 ﻿using BloodyPath.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace BloodyPath.View;
 
@@ -87,12 +88,15 @@ public class BasePlayerDrawer
             // Позиция текста "Player 2"
             playerTextPos = new Vector2(Pos.X + maxWidth - playerTextSize.X + 3, Pos.Y - 26);
             spriteBatch.DrawString(font, "Player 2", playerTextPos, Color.White);
-
+            
             // Отображение побед Player 2
-            playerVictoriesPos = new(Pos.X - 14, Pos.Y + 1);
+            int shift = 0;
+            if (Player.Victories >= 10)
+                shift = (int)Math.Floor(Math.Log10(Player.Victories)) * 12;
+            playerVictoriesPos = new(Pos.X - 14 - shift, Pos.Y + 1);
             spriteBatch.DrawString(font, Player.Victories.ToString(), playerVictoriesPos, Color.White);
-            spriteBatch.Draw(PlayerHpTexture, 
-                             new Rectangle((int)Pos.X + fillWidth, (int)Pos.Y, maxWidth - fillWidth, 25), 
+            spriteBatch.Draw(PlayerHpTexture,
+                             new Rectangle((int)Pos.X + fillWidth, (int)Pos.Y, maxWidth - fillWidth, 25),
                              Color.Red);
         }
     }
