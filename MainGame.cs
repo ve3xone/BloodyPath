@@ -16,8 +16,6 @@ public class MainGame : Game
     private readonly GraphicsDeviceManager Graphics;
     private SpriteBatch SpriteBatch;
 
-    private Texture2D BackgroundTexture;
-
     public MainGame()
     {
         Graphics = new GraphicsDeviceManager(this);
@@ -35,13 +33,9 @@ public class MainGame : Game
 
     protected override void Initialize() => base.Initialize();
 
-
-
     protected override void LoadContent()
     {
         SpriteBatch = new SpriteBatch(GraphicsDevice);
-
-        BackgroundTexture = Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600");
 
         MusicManager.LoadContent(Content.Load<Song>(@"Music\ve3xone - Midnight Melodies"),
                                  Content.Load<Song>(@"Music\ve3xone - Neon Forest"));
@@ -63,7 +57,7 @@ public class MainGame : Game
 
         BattleField.ScreenDrawer = new(BattleField.Screen, 
                                        Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
-                                       BackgroundTexture);
+                                       Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600"));
         BattleField.ScreenController = new(BattleField.Screen);
     }
 
