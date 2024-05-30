@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-
-namespace BloodyPath.Models;
+﻿namespace BloodyPath.Models;
 
 public class AnimationPicture
 {

@@ -41,13 +41,9 @@ public class MainGame : Game
                                  Content.Load<Song>(@"Music\ve3xone - Neon Forest"));
 
         MainMenu.Screen = new (this,
-                               Content.Load<SpriteFont>(@"Fonts\FontMainMenuNameGame"),
-                               Content.Load<SpriteFont>(@"Fonts\FontMainMenuButtons"),
-                               Content.Load<SpriteFont>(@"Fonts\FontMainMenuCopyright"),
                                VisibilityScreens,
                                MusicManager);
 
-        MainMenu.Screen.LoadContent();
         MainMenu.ScreenDrawer = new(MainMenu.Screen);
         MainMenu.ScreenController = new(MainMenu.Screen);
 
