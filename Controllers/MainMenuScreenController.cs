@@ -9,7 +9,7 @@ public class MainMenuScreenController
 
     public MainMenuScreenController(MainMenuScreen mainMenuScreen) 
     { 
-        this.MainMenuScreen = mainMenuScreen;
+        MainMenuScreen = mainMenuScreen;
         Initialize();
     }
 

@@ -12,7 +12,7 @@ public class ClickableTextController
 
     public ClickableTextController(ClickableText clickableText)
     {
-        this.ClickableText = clickableText;
+        ClickableText = clickableText;
         BoundingBox = new Rectangle((int)ClickableText.Position.X,
                                     (int)ClickableText.Position.Y,
                                     (int)ClickableText.textSize.X,

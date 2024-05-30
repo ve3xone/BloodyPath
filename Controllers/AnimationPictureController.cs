@@ -20,9 +20,7 @@ public class AnimationPictureController
         {
             Animation.CurrentFrame++;
             if (Animation.CurrentFrame >= Animation.FrameCount)
-            {
                 Animation.CurrentFrame = 0;
-            }
             Animation.TimeCounter -= Animation.FrameTime;
         }
     }
