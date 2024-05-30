@@ -7,10 +7,16 @@ namespace BloodyPath.Views;
 public class BattleFieldScreenDrawer
 {
     private readonly BattleFieldScreen BattleFieldScreen;
+    private readonly Texture2D Background;
+    private readonly SpriteFont Font;
 
-    public BattleFieldScreenDrawer(BattleFieldScreen battleFieldScreen)
+    public BattleFieldScreenDrawer(BattleFieldScreen battleFieldScreen,
+                                   SpriteFont battlefieldFont,
+                                   Texture2D background)
     {
         BattleFieldScreen = battleFieldScreen;
+        Font = battlefieldFont;
+        Background = background;
     }
 
     public void Draw(SpriteBatch spriteBatch)
@@ -19,17 +25,17 @@ public class BattleFieldScreenDrawer
         {
             spriteBatch.Begin();
 
-            spriteBatch.Draw(BattleFieldScreen.Background, Vector2.Zero, Color.White);
+            spriteBatch.Draw(Background, Vector2.Zero, Color.White);
 
             BattleFieldScreen.Persona1.PlayerDrawer.Draw(spriteBatch);
             BattleFieldScreen.Persona1.PlayerDrawer.DrawHpPlayerBar(spriteBatch, 
-                                                                    BattleFieldScreen.Font, 
+                                                                    Font, 
                                                                     new Vector2(10, 25), 
                                                                     true);
 
             BattleFieldScreen.Persona2.PlayerDrawer.Draw(spriteBatch);
             BattleFieldScreen.Persona2.PlayerDrawer.DrawHpPlayerBar(spriteBatch, 
-                                                                    BattleFieldScreen.Font, 
+                                                                    Font, 
                                                                     new Vector2(480, 25), 
                                                                     false);
 

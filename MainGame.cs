@@ -57,15 +57,13 @@ public class MainGame : Game
         MainMenu.ScreenDrawer = new(MainMenu.Screen);
         MainMenu.ScreenController = new(MainMenu.Screen);
 
-        BattleField.Screen = new (this, 
-                                  Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
-                                  BackgroundTexture,
-                                  VisibilityScreens,
-                                  MusicManager);
+        BattleField.Screen = new (this, VisibilityScreens, MusicManager);
 
         BattleField.Screen.LoadContent();
 
-        BattleField.ScreenDrawer = new(BattleField.Screen);
+        BattleField.ScreenDrawer = new(BattleField.Screen, 
+                                       Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
+                                       BackgroundTexture);
         BattleField.ScreenController = new(BattleField.Screen);
     }
 

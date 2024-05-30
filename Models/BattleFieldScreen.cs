@@ -8,24 +8,18 @@ public class BattleFieldScreen
 {
     public readonly Persona Persona1 = new();
     public readonly Persona Persona2 = new();
-    public Texture2D Background;
-    public SpriteFont Font;
+    public readonly Game Game;
     public Rectangle GroundRectangle;
     public VisibilityScreens VisibilityScreens;
-    public readonly Game Game;
     public MusicManager MusicManager;
 
     public BattleFieldScreen(Game game,
-                             SpriteFont battlefieldFont, 
-                             Texture2D background,
                              VisibilityScreens VisibilityScreens,
                              MusicManager musicManager)
     {
-        this.Font = battlefieldFont;
-        this.Game = game;
-        this.Background = background;
+        Game = game;
         this.VisibilityScreens = VisibilityScreens;
-        this.MusicManager = musicManager;
+        MusicManager = musicManager;
     }
 
     public void LoadContent()
