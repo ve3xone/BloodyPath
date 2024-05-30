@@ -10,14 +10,13 @@ namespace BloodyPath.Controller;
 public class BasePlayerController
 {
     private readonly BasePlayer Player;
+    private Dictionary<string, Keys> KeyMappings { get; set; }
     private const float MaxFallSpeed = 10f;
     private const float Gravity = 0.07f;
-    private float VerticalVelocity = 0f;
-    private Dictionary<string, Keys> KeyMappings { get; set; }
-
-    private float attackTimer;
     private const float attackInterval = 0.35f;
     private const float attackAnimationDuration = 0.25f;
+    private float VerticalVelocity = 0f;
+    private float attackTimer;
     private bool previousKeyState = false;
 
     public BasePlayerController(BasePlayer player, 

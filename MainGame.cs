@@ -40,20 +40,14 @@ public class MainGame : Game
         MusicManager.LoadContent(Content.Load<Song>(@"Music\ve3xone - Midnight Melodies"),
                                  Content.Load<Song>(@"Music\ve3xone - Neon Forest"));
 
-        MainMenu.Screen = new (this,
-                               VisibilityScreens,
-                               MusicManager);
+        MainMenu.Screen = new (this, VisibilityScreens, MusicManager);
 
         MainMenu.ScreenDrawer = new(MainMenu.Screen);
         MainMenu.ScreenController = new(MainMenu.Screen);
 
         BattleField.Screen = new (this, VisibilityScreens, MusicManager);
 
-        BattleField.Screen.LoadContent();
-
-        BattleField.ScreenDrawer = new(BattleField.Screen, 
-                                       Content.Load<SpriteFont>(@"Fonts\FontBattleField"),
-                                       Content.Load<Texture2D>(@"Backgrounds\Landscape_800_600"));
+        BattleField.ScreenDrawer = new(BattleField.Screen);
         BattleField.ScreenController = new(BattleField.Screen);
     }
 
