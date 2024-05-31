@@ -43,7 +43,6 @@ public class BattleFieldScreenDrawer
             BattleFieldScreen.Game.Content.Load<Texture2D>("HPRed"));
     }
 
-
     public void Draw(SpriteBatch spriteBatch)
     {
         if (BattleFieldScreen.VisibilityScreens.BattleFieldIsVisible)
