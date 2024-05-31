@@ -43,7 +43,6 @@ public class BattleFieldScreenController
         BattleFieldScreen.Persona2.PlayerController = new(BattleFieldScreen.Persona2.Player, BattleFieldScreen.Persona2.PlayerKeyMappings);
     }
 
-
     public void Update(GameTime gameTime, KeyboardState keyboardState)
     {
         if (BattleFieldScreen.VisibilityScreens.BattleFieldIsVisible)
