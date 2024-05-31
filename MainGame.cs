@@ -21,8 +21,6 @@ public class MainGame : Game
         Graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
 
-        // Пока что нету настроек
-        // Поэтому я оставлю эти параметры сдесь
         // Graphics.IsFullScreen = true;
         Graphics.PreferredBackBufferWidth = 800;
         Graphics.PreferredBackBufferHeight = 600;
