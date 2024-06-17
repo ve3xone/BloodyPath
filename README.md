@@ -10,7 +10,7 @@
 
 - Фреймворк: [Monogame](https://github.com/MonoGame/MonoGame) (aka [Microsoft XNA Framework](https://en.wikipedia.org/wiki/Microsoft_XNA))
 
-- Также есть [презентация](https://github.com/ve3xone/BloodyPath/blob/master/BloodyPath_Presentation.pptx) в которой также все расписано
+- Также есть [презентация](https://github.com/ve3xone/BloodyPath/raw/master/BloodyPath_Presentation.pptx) в которой также все расписано
 
 ## Геймплей 
 
