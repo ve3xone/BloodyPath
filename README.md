@@ -10,6 +10,8 @@
 
 - Фреймворк: [Monogame](https://github.com/MonoGame/MonoGame) (aka [Microsoft XNA Framework](https://en.wikipedia.org/wiki/Microsoft_XNA))
 
+- Также есть [презентация](https://github.com/ve3xone/BloodyPath/blob/master/BloodyPath_Presentation.pptx) в которой также все расписано
+
 ## Геймплей 
 
 Игровой процесс заключается как в простом 2D Fighting, в котором вы с другом (либо с ботом) пытаетесь выяснить кто из вас сильнее на кулаках. Цель игры – победить друга (либо бота), вы сами решаете когда остановиться и кто по итогу победил.
